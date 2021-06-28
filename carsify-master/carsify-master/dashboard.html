@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <title>Responsive Navbar with Search Box | CodingNepal</title> -->
+    <link rel="stylesheet" href="./assets/stylesheets/dashboard.css">
+    <link rel="stylesheet" href="./assets/stylesheets/navigation.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/.png">
+    <title>Dashboard</title>
+</head>
+  <body>
+      <div class="boody">
+      <!-------------------------------navigation------------------------------------------------->
+      <nav>
+        <div class="menuicon">
+            <span class="fas fa-bars"></span>
+        </div>
+        <div class="logoo">
+          <img src="./assets/images/logo7.png"/>
+        </div>
+        <div class="navitems">
+            <li><a href="dashboard.html">Home</a></li>
+            <li><a href="#">
+                <div class="dropdown show">
+                    <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Booking Management
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="addcar.html">Add Vehicle</a>
+                      <a class="dropdown-item" href="myvehicle.html">My Vehicle</a>
+                      
+                    </div>
+                  </div>
+            </a></li>
+            <li><a href="#"><div class="dropdown show">
+              <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Profile
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="profile.html">View Profile</a>
+                <a class="dropdown-item" href="editprofile.html">Edit Profile</a>
+                <a class="dropdown-item" href="#">Logout</a>
+              </div>
+            </div></a></li>
+            <li><a href="favourites.html">Favourites</a></li>
+            <!-- <li><a href="#">Feedback</a></li> -->
+        </div>
+        <div class="searchicon">
+            <span class="fas fa-search"></span>
+        </div>
+        <div class="cancelicon">
+            <span class="fas fa-times"></span>
+        </div>
+        <form action="#">
+                <input type="search" class="search-data" placeholder="Search" required>
+                <button type="submit" class="fas fa-search"></button>
+        </form>
+    </nav>
+    <!--------------------------------------------body main--------------------------------------------->
+   <div class="container cont">
+        <div class="row">
+            <!----------------------------------------------------------refine by laptop--------------------------->
+            <div class="col-lg-3 refineby">
+                <ul>
+                    <h3>Refine By <span><i class="fa fa-arrow"></i></span></h3>
+                    <div class="scroll-refine">
+                        <ul>
+                            <li><i class="fa fa-plus first"></i>Brand
+                                <ul class="inner-refineby one">
+                                    <li> <input type="checkbox">Audi</li>
+                                    <li> <input type="checkbox">Bentley</li>
+                                    <li> <input type="checkbox">BMW</li>
+                                    <li> <input type="checkbox">Chevrolet</li>
+                                    <li> <input type="checkbox">Fiat</li>
+                                    <li> <input type="checkbox">Ford</li>
+                                    <li> <input type="checkbox">Honda</li>
+                                    <li> <input type="checkbox">Hyundai</li>
+                                    <li> <input type="checkbox">Jaguar</li>
+                                    <li> <input type="checkbox">Land Rover</li>
+                                    <li> <input type="checkbox">Mahindra</li>
+                                    <li> <input type="checkbox">Maruti Suzuki</li>
+                                    <li> <input type="checkbox">Mercedes Benz</li>
+                                    <li> <input type="checkbox">Mitsubishi</li>
+                                    <li> <input type="checkbox">Nissan</li>
+                                    <li> <input type="checkbox">Porche</li>
+                                    <li> <input type="checkbox">Range Rover</li>
+                                    <li> <input type="checkbox">Renault</li>
+                                    <li> <input type="checkbox">Rolls-Royce</li>
+                                    <li> <input type="checkbox">Skoda</li>
+                                    <li> <input type="checkbox">Tata Motors</li>
+                                    <li> <input type="checkbox">Toyota</li>
+                                    <li> <input type="checkbox">Volkswagen</li>
+                                    <li> <input type="checkbox">Volvo</li>
+                                </ul>
+                            </li>
+                            <li><i class="fa fa-plus second"></i>Fuel Type
+                                <ul class="inner-refineby two">
+                                    <li> <input type="checkbox">Petrol</li>
+                                    <li> <input type="checkbox">Diesel</li>
+                                    <li> <input type="checkbox">CNG</li>
+                                    <li> <input type="checkbox">LPG</li>
+                                    <li> <input type="checkbox">Electric</li>
+                                    <li> <input type="checkbox">Hybrid</li>
+                                </ul>
+                            </li>
+                            <li><i class="fa fa-plus third"></i>Body Type
+                                <ul class="inner-refineby three">
+                                    <li> <input type="checkbox">Hatchback</li>
+                                    <li> <input type="checkbox">Sedan</li>
+                                    <li> <input type="checkbox">SUV</li>
+                                    <li> <input type="checkbox">Luxury Sedan</li>
+                                    <li> <input type="checkbox">Luxury SUV</li>
+                                </ul>
+                            </li>
+                            <li><i class="fa fa-plus fourth"></i>No. of Owners
+                                <ul class="inner-refineby four">
+                                    <li> <input type="checkbox">1<sup>st</sup> Owner</li>
+                                    <li> <input type="checkbox">2<sup>nd</sup> Owner</li>
+                                    <li> <input type="checkbox">3<sup>rd</sup> Owner</li>
+                                    <li> <input type="checkbox">4<sup>th</sup> Owner and Above</li>
+                                </ul>
+                            </li>
+                            <li><i class="fa fa-plus fifth"></i>Transmission Type
+                                <ul class="inner-refineby five">
+                                    <li> <input type="checkbox">Automatic</li>
+                                    <li> <input type="checkbox">Manual</li>
+                                </ul>
+                            </li>
+                            <label class="refine_label" for="">Registered Location</label>
+                            <input type="text" class="regLoc" name="" id="">
+                            <label class="refine_label" for="">Model Year</label>
+                            <div class="inputs">
+                                <input type="number" value="2000" placeholder="Min" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                            <label class="refine_label" for="">Kilometers Driven</label>
+                            <div class="inputs">
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                            <label class="refine_label" for="">Price</label>
+                            <div class="inputs">
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                        </ul>
+
+                    </div>
+                </ul>
+            </div>
+            <!----------------------------------------------main content cards------------------------------------------------->
+            <div class="col-xl-9 col-lg-12">
+                <div class="row sortlap" style="position: relative; width: 100%; height: 30px;">
+                    <div class="col-12">
+                        <label id="cars_label" style="position: absolute; right: 0; top: 0;">Sort By
+                        <select id="cars" name="cars">
+                            <optgroup>
+                                    <option value="Relevance">Relevance</option>
+                                    <option value="High To Low">High To Low</option>
+                                    <option value="Low To High">Low To High</option>
+                                    <option value="New To Old">New To Old</option>
+                                    <option value="Old To New">Old To New</option>
+                                    
+                            </optgroup>
+                        </select>
+                        </label>
+                        
+                    </div>
+                    <!-- <label class="select" for="slct">
+                        <select id="slct" required="required">
+                          <option value="" disabled="disabled" selected="selected">Select option</option>
+                          <option value="#">One</option>
+                          <option value="#">Two</option>
+                          <option value="#">Three</option>
+                          <option value="#">Four</option>
+                          <option value="#">Five</option>
+                          <option value="#">Six</option>
+                          <option value="#">Seven</option>
+                        </select>
+                        <svg>
+                          <use xlink:href="#select-arrow-down"></use>
+                        </svg>
+                      </label>
+                    SVG Sprites
+                      <svg class="sprites">
+                        <symbol id="select-arrow-down" viewbox="0 0 10 6">
+                          <polyline points="1 1 5 5 9 1"></polyline>
+                        </symbol>
+                      </svg> -->
+                </div>
+                <div class="row cards-div">
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">Maruti Suzuki</div>
+                                <div class="col-3"><p class="float-right">2005</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="./assets/images/team1.jpg" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">Location</div>
+                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
+                            </div>
+                            <h5>Rs. 440000</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="viewdetails.html"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+   </div>
+   <!-------------------------------------refine and sort by mobile option ---------------------------------------->
+<div class="text-center refinebymobile">
+    <ul>
+        
+        <li class="sort-icon"><i class="fa fa-plus"></i>sort</li>
+        <li class="filter-icon"><i class="fa fa-filter"></i>    filter</li>
+    </ul>
+    
+</div>
+<!-------------------------------------refine by mobile slider------------------------------------------------------------>
+<div class="container-fluid filter">
+       <div class="filter-inner">
+            <div class="filter-nav">
+                <i class="fa fa-times filter-cross"></i>
+                
+            </div>
+            <div class="filter-body">
+                
+                <div class="container">
+                    <div class="mrefineby">
+                        <ul>
+                            <h3>Refine By <span><i class="fa fa-arrow"></i></span></h3>
+                            <ul>
+                                <li><i class="fa fa-plus firstm"></i>Brand
+                                    <ul class="inner-refineby onem">
+                                        <li> <input type="checkbox">Audi</li>
+                                        <li> <input type="checkbox">Bentley</li>
+                                        <li> <input type="checkbox">BMW</li>
+                                        <li> <input type="checkbox">Chevrolet</li>
+                                        <li> <input type="checkbox">Fiat</li>
+                                        <li> <input type="checkbox">Ford</li>
+                                        <li> <input type="checkbox">Honda</li>
+                                        <li> <input type="checkbox">Hyundai</li>
+                                        <li> <input type="checkbox">Jaguar</li>
+                                        <li> <input type="checkbox">Land Rover</li>
+                                        <li> <input type="checkbox">Mahindra</li>
+                                        <li> <input type="checkbox">Maruti Suzuki</li>
+                                        <li> <input type="checkbox">Mercedes Benz</li>
+                                        <li> <input type="checkbox">Mitsubishi</li>
+                                        <li> <input type="checkbox">Nissan</li>
+                                        <li> <input type="checkbox">Porche</li>
+                                        <li> <input type="checkbox">Range Rover</li>
+                                        <li> <input type="checkbox">Renault</li>
+                                        <li> <input type="checkbox">Rolls-Royce</li>
+                                        <li> <input type="checkbox">Skoda</li>
+                                        <li> <input type="checkbox">Tata Motors</li>
+                                        <li> <input type="checkbox">Toyota</li>
+                                        <li> <input type="checkbox">Volkswagen</li>
+                                        <li> <input type="checkbox">Volvo</li>
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus secondm"></i>Fuel Type
+                                    <ul class="inner-refineby twom">
+                                        <li> <input type="checkbox">Petrol</li>
+                                        <li> <input type="checkbox">Diesel</li>
+                                        <li> <input type="checkbox">CNG</li>
+                                        <li> <input type="checkbox">LPG</li>
+                                        <li> <input type="checkbox">Electric</li>
+                                        <li> <input type="checkbox">Hybrid</li>
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus thirdm"></i>Body Type
+                                    <ul class="inner-refineby threem">
+                                        <li> <input type="checkbox">Hatchback</li>
+                                        <li> <input type="checkbox">Sedan</li>
+                                        <li> <input type="checkbox">SUV</li>
+                                        <li> <input type="checkbox">Luxury Sedan</li>
+                                        <li> <input type="checkbox">Luxury SUV</li>
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus fourthm"></i>No. of Owners
+                                    <ul class="inner-refineby fourm">
+                                        <li> <input type="checkbox">1<sup>st</sup> Owner</li>
+                                        <li> <input type="checkbox">2<sup>nd</sup> Owner</li>
+                                        <li> <input type="checkbox">3<sup>rd</sup> Owner</li>
+                                        <li> <input type="checkbox">4<sup>th</sup> Owner and Above</li>
+                                    </ul>
+                                </li>
+                                <li><i class="fa fa-plus fifthm"></i>Transmission Type
+                                    <ul class="inner-refineby fivem">
+                                        <li> <input type="checkbox">Automatic</li>
+                                    <li> <input type="checkbox">Manual</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <label class="refine_label" for="">Registered Location</label>
+                            <input type="text" class="regLoc" name="" id="">
+                            <label class="refine_label" for="">Model Year</label>
+                            <div class="inputs">
+                                <input type="number" value="2000" placeholder="Min" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                            <label class="refine_label" for="">Kilometers Driven</label>
+                            <div class="inputs">
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                            <label class="refine_label" for="">Price</label>
+                            <div class="inputs">
+                                <input type="number" value="0" class="model_year">
+                                <input type="number" placeholder="Max" class="model_year">
+                            </div>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="filter-footer">
+                <p>Apply</p>
+                <p>Reset</p>
+            </div>
+       </div>
+</div>
+<!------------------------------------sort by mobile slider-------------------------------------------------------------------->
+<div class="container-fluid sort">
+    <div class="sort-div">
+        <div class="sort-head">
+            <h4>Sort By</h4>
+            <hr>
+        </div>
+        <div class="sort-cont">
+            <ul>
+               <li class="testing" id="checkone"><p>Relevance<span><i class="fa checkicon1"></i></span></p></li>
+                <li class="testing" id="checktwo"><p>Low To High<span><i class="fa checkicon2"></i></span></p></li>
+                <li class="testing" id="checkthree"><p>New To Old<span><i class="fa checkicon3"></i></span></p></li>
+                <li class="testing" id="checkfour"><p>Old To New<span><i class="fa checkicon4"></i></span></p></li>
+                <li class="testing" id="checkfive"><p>High To Low<span><i class="fa checkicon5"></i></span></p></li>
+            </ul>
+        </div>
+    </div>
+</div>
+    </div>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="./assets/javascripts/dashboard.js"></script>
+<script src="./assets/javascripts/navigation.js"></script>
+</body>
+</html>

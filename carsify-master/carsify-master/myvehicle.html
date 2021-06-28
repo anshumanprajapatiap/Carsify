@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./assets/stylesheets/myvehicle.css">
+    <link rel="stylesheet" href="./assets/stylesheets/navigation.css">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="shortcut icon" href="./assets/images/favicon.png" type="image/.png">
+    <title>My Vehicles</title>
+</head>
+<body>
+
+
+  <nav>
+    <div class="menuicon">
+        <span class="fas fa-bars"></span>
+    </div>
+    <div class="logoo">
+      <img src="./assets/images/logo7.png"/>
+    </div>
+    <div class="navitems">
+        <li><a href="dashboard.html">Home</a></li>
+        <li><a href="#">
+            <div class="dropdown show">
+                <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  Booking Management
+                </a>
+              
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                  <a class="dropdown-item" href="addcar.html">Add Vehicle</a>
+                  <a class="dropdown-item" href="myvehicle.html">My Vehicle</a>
+                  
+                </div>
+              </div>
+        </a></li>
+        <li><a href="#"><div class="dropdown show">
+          <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+           Profile
+          </a>
+        
+          <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <a class="dropdown-item" href="profile.html">View Profile</a>
+            <a class="dropdown-item" href="editprofile.html">Edit Profile</a>
+            <a class="dropdown-item" href="#">Logout</a>
+          </div>
+        </div></a></li>
+        <li><a href="favourites.html">Favourites</a></li>
+        <!-- <li><a href="#">Feedback</a></li> -->
+    </div>
+    <div class="searchicon">
+        <span class="fas fa-search"></span>
+    </div>
+    <div class="cancelicon">
+        <span class="fas fa-times"></span>
+    </div>
+    <form action="#">
+            <input type="search" class="search-data" placeholder="Search" required>
+            <button type="submit" class="fas fa-search"></button>
+    </form>
+</nav>
+    
+        <h2 class="mainhead">My Vehicles</h2>
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <div class="row mycard">
+                <div class="col-4">
+                  <div class="img">
+                    <img src="./assets/images/team1.jpg">
+                  </div>
+                </div>
+                <div class="col-6 mycontent">
+                  ctetur adipisicing elit. Rem minima cum eveniet neque voluptates itaque distinctio modi voluptatum blanditiis odit! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Commodi nam veniam animi natus inventore repellat ex, quam quidem officiis laudantium eligendi eveniet modi exercitationem quos illo illum quasi doloremque quia nobis, itaque pariatur. Sint aperiam dolor ipsa sed expedita aliquid dolorem, repudiandae veniam laudantium necessitatibus in iusto ex excepturi molestias?
+                </div>
+                <div class="col-2">
+                  <div class="myicons">
+                  <ul>
+                    <li><i title="edit" class="fa fa-pencil"></i></li>
+                    <li><i title="disable" class="fa fa-ban"></i></li>
+                    <li><i title="lorem" class="fa fa-trash"></i></li>
+                  </ul>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        
+
+
+
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="./assets/javascripts/myvehicle.js"></script>
+        <script src="./assets/javascripts/navigation.js"></script>
+      </body>
+</html>

@@ -1,0 +1,476 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/navigation.css' %}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/addcar.css' %}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/png">
+    <title>add car</title>
+  </head>
+  <body>
+    <!-------------------------------navigation------------------------------------------------->
+      <nav>
+        <div class="menuicon">
+            <span class="fas fa-bars"></span>
+        </div>
+        <div class="logoo">
+          <img src="{% static 'assets/images/logo7.png' %}"/>
+        </div>
+        <div class="navitems">
+            <li><a href="{% url 'CarsifyApp:Dashboard' %}">Home</a></li>
+            <li><a href="#">
+                <div class="dropdown show">
+                    <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Booking Management
+                    </a>
+
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:Addcar' %}">Add Vehicle</a>
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:MYvehicle' %}">My Vehicle</a>
+
+                    </div>
+                  </div>
+            </a></li>
+            <li><a href="#"><div class="dropdown show">
+              <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Profile
+              </a>
+
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Profile' %}">View Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Editprofile' %}">Edit Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Logout' %}">Logout</a>
+              </div>
+            </div></a></li>
+            <li><a href="{% url 'CarsifyApp:Favourites' %}">Favourites</a></li>
+            <!-- <li><a href="#">Feedback</a></li> -->
+        </div>
+        <div class="searchicon">
+            <span class="fas fa-search"></span>
+        </div>
+        <div class="cancelicon">
+            <span class="fas fa-times"></span>
+        </div>
+        <form action="#">
+                <input type="search" class="search-data" placeholder="Search" required>
+                <button type="submit" class="fas fa-search"></button>
+        </form>
+    </nav>
+ 
+      
+      
+      <!-- Modal -info -->
+      <div class="container">
+      <div id="modal-3" class="modal" data-modal-effect="slide-top">
+        <div class="modal-content">
+          <h2 class="fs-title">Score Index</h2>
+          <h3 class="fs-subtitle">Getting the most out of your data</h3>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce convallis consectetur ligula. Morbi dapibus tellus a ipsum sollicitudin aliquet. Phasellus id est lacus. Pellentesque a elementum velit, a tempor nulla. Mauris mauris lectus, tincidunt et purus rhoncus, eleifend convallis turpis. Nunc ullamcorper bibendum diam, vitae tempus dolor hendrerit iaculis. Phasellus tellus elit, feugiat vel mi et, euismod varius augue. Nulla a porttitor sapien. Donec vestibulum ac nisl sed bibendum. Praesent neque ipsum, commodo eget venenatis vel, tempus sit amet ante. Curabitur vel odio eget urna dapibus imperdiet sit amet eget felis. Vestibulum eros velit, posuere a metus eget, aliquam euismod purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.</p>
+          <input type="button" name="next" class="next action-button modal-close" value="Got it!">
+        </div>
+      </div>
+      </div>
+      
+      <form action="#" method="post" class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="">
+        {% csrf_token %}
+        <ul id="progressbar">
+          <li class="active">User Information</li>
+          <li>Aquisition</li>
+          <li>Cultivation</li>
+          <li>Cultivation2</li>
+          <li>Retention</li>
+        </ul>
+      
+      
+      
+        <!-- USER INFORMATION FIELD SET --> 
+        <fieldset>
+          <h2 class="fs-title">Basic Information</h2>
+          <h3 class="fs-subtitle">We just need some basic information to begin your deals</h3>
+          <!-- Begin What's Your First Name Field -->
+              <div class="hs_companyname field hs-form-field">
+              
+                <label for="companyname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Company *</label>
+      
+                <select id="companyname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="companyname" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the company" >
+                  <option disabled selected value> -- select an option -- </option>
+                  {% for i in car_company %}
+                  <option value="{{i}}" >{{i}}</option>
+                  {% endfor %}
+                </select>
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+          <!-- End What's Your First Name Field -->
+      
+          <!-- Begin What's Your Email Field -->
+              <div class="hs_modelname field hs-form-field">
+              
+                <label for="modelname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Model *</label>
+      
+                <input id="modelname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="modelname" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter your cars model no" >
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+          <!-- End What's Your Email Field -->
+      
+          <!-- Begin Total Number of Constituents in Your Database Field -->
+              <div class="hs_VehicleNumber field hs-form-field hs_total_number_of_constituents_in_your_database">
+              
+                <label for="Vehiclenumber-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Vehicle Number *</label>
+      
+                <input id="Vehiclenumber-submitted-constituent-base-total-constituents" class="form-text hs-input" name="VehicleNumber" required="required" size="60"  minlength="9" maxlength="10" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter a valid  Vehicle number" >
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+
+           <!-- End What's Your Email Field -->
+      
+          <!-- Begin Total Number of Constituents in Your Database Field -->
+            
+              <div class="hs_Varient field hs-form-field hs_total_number_of_constituents_in_your_database">
+              
+                <label for="Varient-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Varient</label>
+      
+                <input id="Varient-submitted-constituent-base-total-constituents" class="form-text hs-input" name="Varient"  size="60" maxlength="10" type="text" value="" placeholder="" >
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+      
+          <!-- End Total Number of Constituents in Your Database Field -->
+          <input type="button" data-page="1" name="next" class="next action-button" value="Next" />
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3"><i class="question-log fa fa-question-circle"></i> What Is This?</div>
+        </fieldset>
+      
+      
+      
+        <!-- ACQUISITION FIELD SET -->  
+        <fieldset>
+          <h2 class="fs-title">Acquisition of Donors</h2>
+          <h3 class="fs-subtitle">How have you been doing in acquiring donors?</h3>
+            <!-- Begin What's Your First Name Field -->
+            <div class="hs_RegisteredState field hs-form-field">
+              
+              <label for="RegisteredState-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Registered State*</label>
+    
+              <select id="RegisteredState-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="RegisteredState" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the company" >
+                <option disabled selected value> -- select an option -- </option>
+                <option value="Andhra Pradesh">Andhra Pradesh</option>
+                <option value="Andaman and Nicobar Islands">Andaman and Nicobar Islands</option>
+                <option value="Arunachal Pradesh">Arunachal Pradesh</option>
+                <option value="Assam">Assam</option>
+                <option value="Bihar">Bihar</option>
+                <option value="Chandigarh">Chandigarh</option>
+                <option value="Chhattisgarh">Chhattisgarh</option>
+                <option value="Dadar and Nagar Haveli">Dadar and Nagar Haveli</option>
+                <option value="Daman and Diu">Daman and Diu</option>
+                <option value="Delhi">Delhi</option>
+                <option value="Lakshadweep">Lakshadweep</option>
+                <option value="Puducherry">Puducherry</option>
+                <option value="Goa">Goa</option>
+                <option value="Gujarat">Gujarat</option>
+                <option value="Haryana">Haryana</option>
+                <option value="Himachal Pradesh">Himachal Pradesh</option>
+                <option value="Jammu and Kashmir">Jammu and Kashmir</option>
+                <option value="Jharkhand">Jharkhand</option>
+                <option value="Karnataka">Karnataka</option>
+                <option value="Kerala">Kerala</option>
+                <option value="Madhya Pradesh">Madhya Pradesh</option>
+                <option value="Maharashtra">Maharashtra</option>
+                <option value="Manipur">Manipur</option>
+                <option value="Meghalaya">Meghalaya</option>
+                <option value="Mizoram">Mizoram</option>
+                <option value="Nagaland">Nagaland</option>
+                <option value="Odisha">Odisha</option>
+                <option value="Punjab">Punjab</option>
+                <option value="Rajasthan">Rajasthan</option>
+                <option value="Sikkim">Sikkim</option>
+                <option value="Tamil Nadu">Tamil Nadu</option>
+                <option value="Telangana">Telangana</option>
+                <option value="Tripura">Tripura</option>
+                <option value="Uttar Pradesh">Uttar Pradesh</option>
+                <option value="Uttarakhand">Uttarakhand</option>
+                <option value="West Bengal">West Bengal</option>
+              </select>
+              <span class="error1" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+            </div>
+        <!-- End What's Your First Name Field -->
+    
+        <!-- Begin What's Your Email Field -->
+            <div class="hs_Registeredcity field hs-form-field">
+            
+              <label for="Registeredcity-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Registered City*</label>
+    
+              <input id="Registeredcity-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="Registeredcity" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter your Registered city" >
+              <span class="error1" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+            </div>
+        <!-- End What's Your Email Field -->
+    
+        <!-- Begin Total Number of Constituents in Your Database Field -->
+            <div class="hs_NumberofOwners field hs-form-field">
+              
+              <label for="NumberofOwners-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Number of Owners</label>
+    
+              <select id="NumberofOwners-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="NumberofOwners"  type="text" value="" placeholder=""  >
+                <option disabled selected value> -- select an option -- </option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+              </select>
+              <span class="error1" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+            </div>
+
+
+            <div class="hs_Manufacturing field hs-form-field hs_total_number_of_constituents_in_your_database">
+            
+              <label for="Manufacturing-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Manufacturing Year</label>
+    
+              <input id="Manufacturing-submitted-constituent-base-total-constituents" class="form-text hs-input" name="Manufacturing"  size="60"  type="text" value="" placeholder="">
+              <span class="error1" style="display: none;">
+                  <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+            </div>
+    
+        <!-- End Total Number of Constituents in Your Database Field -->
+          <input type="button" data-page="2" name="previous" class="previous action-button" value="Previous" />
+          <input type="button" data-page="2" name="next" class="next action-button" value="Next" />
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
+        </fieldset>
+      
+      
+      
+        <!-- Cultivation FIELD SET -->  
+        <fieldset>
+          <h2 class="fs-title">Cultivation and Nurturing your Donors</h2>
+          <h3 class="fs-subtitle">How have you been nurturing donors to get better donations?</h3>
+
+          <!-- Begin What's Your First Name Field -->
+          <div class="hs_VehicalType field hs-form-field">
+              
+            <label for="VehicalType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Vehical Type*</label>
+  
+            <select id="VehicalType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="VehicalType" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the Vehicle_type" >
+              <option disabled selected value> -- select an option -- </option>
+              <option value="1">1</option>
+              <option value="1">1</option>
+              <option value="1">1</option>
+              <option value="1">1</option>
+              <option value="1">1</option>
+              <option value="1">1</option>
+            </select>
+            <span class="error1" style="display: none;">
+                <i class="error-log fa fa-exclamation-triangle"></i>
+            </span>
+          </div>
+      <!-- End What's Your First Name Field -->
+  
+      <!-- Begin What's Your Email Field -->
+      <div class="hs_Transmission field hs-form-field">
+              
+        <label for="Transmission-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Transmission</label>
+
+        <select id="Transmission-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="Transmission"  type="text" value="" placeholder=""  >
+          <option disabled selected value> -- select an option -- </option>
+          <option value="Auto">Auto</option>
+          <option value="Manual">Manual</option>
+        </select>
+            <span class="error1" style="display: none;">
+                <i class="error-log fa fa-exclamation-triangle"></i>
+            </span>
+          </div>
+      <!-- End What's Your Email Field -->
+  
+      <!-- Begin Total Number of Constituents in Your Database Field -->
+          <div class="hs_Km field hs-form-field hs_total_number_of_constituents_in_your_database">
+          
+            <label for="Km-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Km</label>
+  
+            <input id="Km-submitted-constituent-base-total-constituents" class="form-text hs-input" name="Km" type="number">
+            <span class="error1" style="display: none;">
+                <i class="error-log fa fa-exclamation-triangle"></i>
+            </span>
+          </div>
+
+       <!-- End What's Your Email Field -->
+  
+      <!-- Begin Total Number of Constituents in Your Database Field -->
+        
+          <div class="hs_color field hs-form-field hs_total_number_of_constituents_in_your_database">
+          
+            <label for="color-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Color</label>
+  
+            <input id="color-submitted-constituent-base-total-constituents" class="form-text hs-input" name="color"  type="text" value="" placeholder="" >
+            <span class="error1" style="display: none;">
+                <i class="error-log fa fa-exclamation-triangle"></i>
+            </span>
+          </div>
+  
+      <!-- End Total Number of Constituents in Your Database Field -->
+          
+    
+        <!-- End Total Number of Constituents in Your Database Field -->
+          <input type="button" data-page="3" name="previous" class="previous action-button" value="Previous" />
+          <input type="button" data-page="3" name="next" class="next action-button" value="Next" />
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
+        </fieldset>
+      
+      
+      
+        <!-- Cultivation2 FIELD SET --> 
+        <fieldset>
+          <h2 class="fs-title">Total Cultivation in Donation</h2>
+          <h3 class="fs-subtitle">Let's talk about your donations as a whole</h3>
+                    <!-- Begin What's Your First Name Field -->
+              <div class="hs_FuelType field hs-form-field">
+              
+                <label for="FuelType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Fuel Type *</label>
+      
+                <select id="FuelType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="FuelType" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the Fuel type" >
+                  <option disabled selected value> -- select an option -- </option>
+
+                  <option value="Petrol" >Petrol</option>
+                  <option value="Diesel" >Diesel</option>
+                  <option value="CNG" >CNG</option>
+                  <option value="Electric" >Electric</option>
+                  <option value="Hybrid" >Hybrid</option>
+                  <option value="Other" >Other</option>
+                </select>
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+          <!-- End What's Your First Name Field -->
+      
+          <!-- Begin What's Your Email Field -->
+              <div class="hs_Image field hs-form-field">
+              
+                <label for="Image-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Upload Image *</label>
+      
+                <input id="Image-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" multiple name="Image" required="required" type="file" value="" placeholder="" data-rule-required="true" data-msg-required="Please Upload the Image" >
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+          <!-- End What's Your Email Field -->
+      
+          <!-- Begin Total Number of Constituents in Your Database Field -->
+              <div class="hs_Price field hs-form-field hs_total_number_of_constituents_in_your_database">
+              
+                <label for="Price-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Price *</label>
+      
+                <input id="Price-submitted-constituent-base-total-constituents" class="form-text hs-input" name="Price" required="required"  type="number" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter a  Vehicle Price" >
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+
+           <!-- End What's Your Email Field -->
+      
+      
+          <input type="button" data-page="4" name="previous" class="previous action-button" value="Previous" />
+          <input type="button" data-page="4" name="next" class="next action-button" value="Next" />
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
+        </fieldset>
+      
+      
+      
+        <!-- RETENTION FIELD SET 5 -->  
+        <fieldset>
+          <h2 class="fs-title">Retention of your donors</h2>
+          <h3 class="fs-subtitle">How long can you keep your donors and their donations?</h3>
+               <!-- Begin What's Your First Name Field -->
+              <div class="hs_Insurance field hs-form-field">
+                            
+                <label for="Insurance-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Insurance Available</label>
+
+                <select id="Insurance-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="Insurance" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the Insurance" >
+                  <option disabled selected value> -- select an option -- </option>
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+              <!-- End What's Your First Name Field -->
+
+              <!-- Begin What's Your Email Field -->
+              <div class="hs_InsuranceType field hs-form-field">
+                  
+              <label for="InsuranceType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Insurance-Type</label>
+
+              <select id="InsuranceType-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="InsuranceType" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the Insurance" >
+              <option disabled selected value> -- select an option -- </option>
+              <option value="1">1 <sup>st</sup> Party</option>
+              <option value="2">1 <sup>nd</sup> Party</option>
+              <option value="3">3 <sup>rd</sup> Party</option>
+              <option value="None">None</option>
+              </select>
+              <span class="error1" style="display: none;">
+                <i class="error-log fa fa-exclamation-triangle"></i>
+              </span>
+              </div>
+              <!-- End What's Your Email Field -->
+
+              <!-- Begin Total Number of Constituents in Your Database Field -->
+              <div class="hs_Comment field hs-form-field hs_total_number_of_constituents_in_your_database">
+
+                <label for="Comment-submitted-constituent-base-total-constituents total_number_of_constituents_in_your_database-99a6d115-5e68-4355-a7d0-529207feb0b3_6344">Comment</label>
+
+                <input id="Comment-submitted-constituent-base-total-constituents" class="form-text hs-input" name="Comment" type="text">
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+              </div>
+
+          <input type="button" data-page="5" name="previous" class="previous action-button" value="Previous" />
+          <button id="submit" class="hs-button primary large action-button next" type="submit" value="Submit">Submit</button>
+       <!--input id="submit" class="hs-button primary large action-button next" type="submit" value="Submit"-->
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
+      </fieldset>
+
+
+        <fieldset id="finalsubmit">
+          <h2 class="fs-title">It's on the way!</h2>
+          <h3 class="fs-subtitle">Thank you for trying out our marketing grader, please go check your email for your fundraising report card and some helpful tips to improve it!</h3>
+          <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
+        </fieldset>
+
+      </form>
+
+        
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+        <script src="https://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+        <!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script> -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <script src="{% static 'assets/javascripts/addcar.js' %}"></script>
+        <script src="{% static 'assets/javascripts/navigation.js' %}"></script>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+
+  </body>
+</html>
