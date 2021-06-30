@@ -68,6 +68,44 @@
             <div class="col-12">
                 
                 <div class="row cards-div">
+
+                    {% for i in f_Car %}
+                    <div class="col-lg-3 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">{{ i.carid.Company }}</div>
+                                <div class="col-3"><p class="float-right">{{ i.carid.Date_of_Manufacturing.year }}</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="{{ i.carid.Images.url }}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ i.carid.Card_Registration_Number }}</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">{{ i.carid.Registration_State }}</div>
+                                <div class="col-6"><p class="float-right car-number">{{ i.carid.Card_Registration_Number }}</p></div>
+                            </div>
+                            <h5>Rs. {{ i.carid.Price }} </h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="{% url 'CarsifyApp:Viewdetails' i.carid.id %}"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                   <a href="{% url 'CarsifyApp:Delete_From_Favourite' i.carid.id %}"><i class="fa fa-trash"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+
+                    <!--
                     <div class="col-lg-3 col-md-6 col-12 p-lg-3">
                         <div class="cards">
                             <div class="row">
@@ -292,39 +330,10 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-3 col-md-6 col-12 p-lg-3">
-                        <div class="cards">
-                            <div class="row">
-                                <div class="col-9">Maruti Suzuki</div>
-                                <div class="col-3"><p class="float-right">2005</p></div>
-                            </div>
-                            <div class="container">
-                                <div class="row">
-                                    <div class="card-pic" class="col-12">
-                                        <img src="{% static 'assets/images/team1.jpg' %}" />
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row py-2">
-                                <div class="col-8 car-modal"><i class="fa fa-car"></i>Swift</div>
-                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
-                            </div>
-                            <div class="row py-2">
-                                <div class="col-6 car-modal">Location</div>
-                                <div class="col-6"><p class="float-right car-number">MP07CC7471</p></div>
-                            </div>
-                            <h5>Rs. 440000</h5>
-                            <div style="box-sizing: border-box;" class="car-button">
-                                <div class="btn-car">
-                                    <a href="/viewdetails.html"><button>view details</button></a>
-                                </div>
-                                <div class="heart-car">
-                                    <i class="fa fa-trash"></i>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    -->
+
                 </div>
+
             </div>
         </div>
     </div>

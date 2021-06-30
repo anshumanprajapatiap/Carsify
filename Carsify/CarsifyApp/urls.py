@@ -15,10 +15,12 @@ urlpatterns = [
     path('addcar/', Addcar, name='Addcar'),
     path('profile/', Profile, name='Profile'),
     path('editprofile/', Editprofile, name='Editprofile'),
-    path('myvehicle/', MYvehicle, name='MYvehicle'),
-    path('viewdetails/', Viewdetails, name='Viewdetails'),
-    path('favourites/', Favourites, name='Favourites'),
 
+    path('myvehicle/', MYvehicle, name='MYvehicle'),
+    path('viewdetails/<int:cid>', Viewdetails, name='Viewdetails'),
+    path('favourites/', Favourites, name='Favourites'),
+    path('delete_from_favourite/ <int:cid>', Delete_From_Favourite, name='Delete_From_Favourite'),
+    path('add_favourite_car/ <int:cid>',Add_to_Favourite, name='Add_to_Favourite'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

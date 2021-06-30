@@ -87,6 +87,9 @@ class Car_Model(models.Model):
         return self.Company_Name.Car_Company_Name +' -- '+ self.Car_Model_Name
 
 
+
+
+
 class Individual_Car_Details(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     Company = models.ForeignKey(Car_Company,on_delete=models.CASCADE,null=True)
@@ -94,6 +97,8 @@ class Individual_Car_Details(models.Model):
     Registration_State = models.ForeignKey(India_States, on_delete=models.CASCADE, null=True)
     Fuel_Type = models.ForeignKey(Car_Fuel, on_delete=models.CASCADE, null=True)
     Transmission = models.ForeignKey(Transmission_Type, on_delete=models.CASCADE, null=True)
+
+    Car_Status = models.BooleanField(default=False)
 
     Date_of_Manufacturing = models.DateField(null=True)
     Card_Registration_Number = models.TextField(null=True)
@@ -108,6 +113,22 @@ class Individual_Car_Details(models.Model):
     def __str__(self):
         return self.user.username+' -- '+ self.Card_Registration_Number
 
+
+class Individual_Car_Images(models.Model):
+    carid = models.ForeignKey(Individual_Car_Details,on_delete=models.CASCADE,null=True)
+    Image1 = models.ImageField(null=True)
+    Image2 = models.ImageField(null=True)
+    Image3 = models.ImageField(null=True)
+    Image4 = models.ImageField(null=True)
+    Image5 = models.ImageField(null=True)
+    Image6 = models.ImageField(null=True)
+    Image7 = models.ImageField(null=True)
+    Image8 = models.ImageField(null=True)
+    Image9 = models.ImageField(null=True)
+    Image10 = models.ImageField(null=True)
+
+    def __str__(self):
+        return self.carid
 
 #user Favourites cars
 class UserFavouriteCars(models.Model):

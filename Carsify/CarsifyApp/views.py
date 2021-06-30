@@ -37,7 +37,6 @@ def Index(request):
 
     return render(request, 'index.html', d)
 
-
 def Login_Signup(request):
     error = False
     allready = False
@@ -76,7 +75,6 @@ def Logout(request):
     logout(request)
     return redirect('CarsifyApp:LoginSignup')
 
-
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='CarsifyApp:LoginSignup')
@@ -84,14 +82,12 @@ def Dashboard(request):
 
     return render(request, 'dashboard.html')
 
-
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Addcar(request):
     car_company = Car_Company.objects.all()
 
     dic = {'car_company':car_company}
     return render(request, 'addcar.html', dic)
-
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Profile(request):
@@ -107,26 +103,64 @@ def Profile(request):
     dic = {'useralldata':useralldata, 'useraddress': address}
     return render(request, 'profile.html', dic)
 
-
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Editprofile(request):
 
     return render(request, 'editprofile.html')
 
-
 @login_required(login_url='CarsifyApp:LoginSignup')
-def Favourites(reqest):
+def Favourites(request):
+    data = UserFavouriteCars.objects.filter(user=request.user)
 
-    return render(reqest, 'favourites.html')
-
+    dic = {'f_Car':data}
+    return render(request, 'favourites.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def MYvehicle(request):
+    data = Individual_Car_Details.objects.filter(user=request.user)
+    dic = {'m_Car': data}
 
-    return render(request, 'myvehicle.html')
+    return render(request, 'myvehicle.html', dic)
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Edit_Vehicle_Details(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    dic={'data':data}
+    return render(request, 'index.html', dic)
+
+#edit individual and update function
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Edit_Update(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    dic = {'data': data}
+    return render(request, 'index.html', dic)
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Disable_My_Vehicle(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    data.Individual_Car_Details.objects.update(Car_Status=True)
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Delete_My_Car(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    data.delete()
+
+    return redirect('CarsifyApp:MYvehicle')
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Viewdetails(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    dic ={'data':data}
+    return render(request, 'viewdetails.html', dic)
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Delete_From_Favourite(request,cid):
+    data = UserFavouriteCars.objects.get(id=cid)
+    data.delete()
+    return redirect('CarsifyApp:Favourites')
 
 
 @login_required(login_url='CarsifyApp:LoginSignup')
-def Viewdetails(request):
-
-    return render(request, 'viewdetails.html')
+def Add_to_Favourite(request, cid):
+    UserFavouriteCars.objects.create(user=request.user, carid=cid)
+    return redirect('CarsifyApp:Dashboard')

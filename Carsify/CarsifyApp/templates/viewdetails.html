@@ -95,26 +95,28 @@
             <div class="col-lg-4 py-4 features-details">
                 <div class="py-3 model">
                     <h3>Features</h3>
-                    <h3><i class="fa fa-heart"></i></h3>
+                    <h3><a href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}"><i class="fa fa-heart"></i></a></h3>
                 </div>
                 
                 <div class="py-3 model">
-                    <h5><i class="fas fa-car"></i>Maruti Suzuki</h5>
-                    <h5><i class="fa fa-plus"></i>Swift Dezire</h5>
+                    <h5><i class="fas fa-car"></i>{{data.Company}}</h5>
+                    <h5><i class="fa fa-plus"></i>{{data.Model}}</h5>
                 </div>
                 <div class="py-3 model">
-                    <h5><i class="fas fa-calendar-check"></i>2005</h5>
+                    <h5><i class="fas fa-calendar-check"></i>{{data.Date_of_Manufacturing.year}}</h5>
                     <h5><i class="fa fa-user"></i>2</h5>
                 </div>
                 <div class="py-3 model">
-                  <h5><i class="fa fa-map"></i>MP07 7471</h5>
-                  <h5><i class="fa fa-map-marker"></i>Gwalior</h5>
+                  <h5><i class="fa fa-map"></i>{{data.Card_Registration_Number}}</h5>
+                </div>
+                <div class="py-3 model">
+                  <h5><i class="fa fa-map-marker"></i>{{data.Registration_State }}</h5>
               </div>
                 <div class="py-3 model">
                     <h5><i class="fa fa-download"></i>Save Images</h5>
                 </div>
                 <div class="py-3 model">
-                    <h4><i class="fas fa-rupee-sign mr-2"></i>4,40,000</h4>
+                    <h4><i class="fas fa-rupee-sign mr-2"></i>{{data.Price}}</h4>
                 </div>
                 
             </div>
@@ -126,9 +128,9 @@
             <div>
                 <h3>Contact the Dealer </h3>
                 <div class="contact-icons">
-                    <p><i class="fa fa-user"></i>Dealer Name</p>
-                    <p><i class="fa fa-phone"></i>999999999</p>
-                    <p><i class="fas fa-envelope-open-text"></i>dealer999@gmail.com</p>  
+                    <p><i class="fa fa-user"></i>{{data.user.first_name}} {{data.user.last_name}}</p>
+                    <p><i class="fa fa-phone"></i>{{data.user}}</p>
+                    <p><i class="fas fa-envelope-open-text"></i>{{data.user.email}}</p>
                 </div>
             </div>     
         </div>
