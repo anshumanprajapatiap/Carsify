@@ -37,12 +37,13 @@ def Index(request):
 
     return render(request, 'index.html', d)
 
+'''
 def Login_Signup(request):
     error = False
     allready = False
     if request.method == 'POST':
+        x = request.POST
         try:
-            x = request.POST
             us = x['usr']
             pa = x['pas']
             user = authenticate(username=us, password=pa)
@@ -53,8 +54,8 @@ def Login_Signup(request):
                 return redirect('CarsifyApp:Dashboard')
             else:
                 error = True
+
         except:
-            x = request.POST
             fullname = x['name']
             email = x['email']
             number = x['number']
@@ -70,15 +71,65 @@ def Login_Signup(request):
 
     d = {"error": error, "allready":allready}
     return render(request, 'login.html', d)
+'''
+
+def Login_Signup(request):
+    error = False
+    not_exist = False
+    if request.method == 'POST':
+        x = request.POST
+
+        us = x['usr']
+        pa = x['pas']
+        user = authenticate(username=us, password=pa)
+        data = User.objects.filter(username=us)
+        if user:
+            login(request, user)
+            print("login")
+            return redirect('CarsifyApp:Dashboard')
+        else:
+            if data:
+                error = True
+            else:
+                not_exist=True
+
+    d = {"error": error, "not_exist": not_exist}
+    return render(request, 'login.html', d)
+
+def Signup(request):
+    allready = False
+    if request.method == 'POST':
+        x = request.POST
+        fullname = x['name']
+        email = x['email']
+        number = x['number']
+        password = x['password']
+
+        data = User.objects.filter(username=email)
+        if (data):
+            allready = True
+        else:
+            # create new user
+            fname = fullname.split()
+            user = User.objects.create_user(username=email, email=email, first_name=fname[0], last_name=fname[1],
+                                     password=password)
+            UserProfile.objects.create(user=user)
+            type = Address_Type.objects.all()
+            for i in type:
+                Address.objects.create(user=user, Address_Typee=i)
+
+        return redirect('CarsifyApp:LoginSignup')
 
 def Logout(request):
     logout(request)
     return redirect('CarsifyApp:LoginSignup')
 
+
 from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Dashboard(request):
+
 
     return render(request, 'dashboard.html')
 
@@ -98,7 +149,7 @@ def Profile(request):
         useralldata.save()
         return redirect('CarsifyApp:Profile')
 
-    address = Address.objects.get(user=request.user)
+    address = Address.objects.filter(user=request.user)
 
     dic = {'useralldata':useralldata, 'useraddress': address}
     return render(request, 'profile.html', dic)
@@ -119,7 +170,6 @@ def Favourites(request):
 def MYvehicle(request):
     data = Individual_Car_Details.objects.filter(user=request.user)
     dic = {'m_Car': data}
-
     return render(request, 'myvehicle.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
@@ -158,7 +208,6 @@ def Delete_From_Favourite(request,cid):
     data = UserFavouriteCars.objects.get(id=cid)
     data.delete()
     return redirect('CarsifyApp:Favourites')
-
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Add_to_Favourite(request, cid):

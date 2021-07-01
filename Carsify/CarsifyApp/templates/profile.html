@@ -66,7 +66,11 @@
     <div class="container">
         <div class="row pt-5 row1">
             <div class="col-lg-3 p-0">
-                <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
+              {% if  useralldata.ProfileImg %}
+              <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
+              {% else %}
+              <img id = "outImage" src="#">
+              {% endif %}
             </div>
             <div class="col-lg-9 pt-3">
               <div class="d-flex justify-content-between py-2">

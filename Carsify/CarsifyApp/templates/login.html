@@ -35,7 +35,7 @@
     <div class="containers">
       <div class="forms-containers">
         <div class="signin-signup">
-          <form method="post" action="#" class="sign-in-form">
+          <form method="post" action="{% url 'CarsifyApp:LoginSignup' %}" class="sign-in-form">
             {% csrf_token %}
             <h2 class="title">Sign in</h2>
             <div class="input-field">
@@ -51,7 +51,7 @@
             <label style="cursor: pointer;color:blue ;">Forgot Password ?</label>
           </form>
 
-          <form method="post" action="#" class="sign-up-form">
+          <form method="post" action="{% url 'CarsifyApp:Signup' %}" class="sign-up-form">
             {% csrf_token %}
             <h2 class="title">Sign up</h2>
             <div class="input-field">

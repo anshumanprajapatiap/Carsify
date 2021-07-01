@@ -6,8 +6,6 @@ class India_States(models.Model):
     def __str__(self):
         return self.State_Name
 
-
-
 class Contact(models.Model):
     Name = models.TextField(null=True)
     Phone = models.IntegerField(null=True)
@@ -18,7 +16,6 @@ class Contact(models.Model):
 
     def __int__(self):
         return self.Phone
-
 
 class Newsletter(models.Model):
     Email = models.EmailField(null=True)
@@ -31,7 +28,6 @@ class Address_Type(models.Model):
 
     def __str__(self):
         return self.Type
-
 
 class Address(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
@@ -60,7 +56,6 @@ class UserProfile(models.Model):
     def __str__(self):
         return self.user.username
 
-
 #all about cars from here
 
 class Car_Company(models.Model):
@@ -85,9 +80,6 @@ class Car_Model(models.Model):
 
     def __str__(self):
         return self.Company_Name.Car_Company_Name +' -- '+ self.Car_Model_Name
-
-
-
 
 
 class Individual_Car_Details(models.Model):
