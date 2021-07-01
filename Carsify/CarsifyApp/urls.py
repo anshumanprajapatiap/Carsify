@@ -16,6 +16,10 @@ urlpatterns = [
     path('profile/', Profile, name='Profile'),
     path('editprofile/', Editprofile, name='Editprofile'),
 
+    #filterdata
+
+    path('filter-data', filter_data, name='filter_data'),
+
     path('myvehicle/', MYvehicle, name='MYvehicle'),
     path('viewdetails/<int:cid>', Viewdetails, name='Viewdetails'),
     path('favourites/', Favourites, name='Favourites'),

@@ -3,7 +3,8 @@ from .models import *
 from django.contrib.auth.models import User
 from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth import login, logout, authenticate
-
+from django.http import JsonResponse, HttpResponse
+from django.template.loader import render_to_string
 # Create your views here.
 def Index(request):
     News = False
@@ -129,9 +130,39 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Dashboard(request):
+    car_data = Individual_Car_Details.objects.all()
+    car_company_data = Car_Company.objects.all()
+    fuels = Car_Fuel.objects.all()
+
+    if request.GET:
+        q = request.GET['q']
+        car_data = Individual_Car_Details.objects.filter(Company__icotanins=q).order_by('-id')
+
+    dic = {'car_data': car_data, 'car_company_data': car_company_data, 'fuels':fuels}
+
+    return render(request, 'dashboard.html', dic)
 
 
-    return render(request, 'dashboard.html')
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+#filter data
+def filter_data(request):
+    car_company = request.GET.getlist('company_of_car[]')
+    print(car_company)
+    fuel = request.GET.getlist('fuel[]')
+
+    car_data = Individual_Car_Details.objects.all().order_by('-id')
+
+    #filters
+    if len(car_company) > 0:
+        car_data = car_data.filter(Company__id__in=car_company).distinct()
+
+    if len(fuel) > 0:
+        car_data = car_data.filter(Fuel_Type__id__in=fuel).distinct()
+
+    t = render_to_string('allcarlist.html', {'car_data': car_data})
+    return JsonResponse({'data':t})
+
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Addcar(request):

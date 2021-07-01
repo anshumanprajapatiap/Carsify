@@ -1,0 +1,35 @@
+{% load static %}
+{% for car in car_data %}
+<div class="col-lg-4 col-md-6 col-12 p-lg-3">
+                        <div class="cards">
+                            <div class="row">
+                                <div class="col-9">{{ car.Company.Car_Company_Name }}</div>
+                                <div class="col-3"><p class="float-right">{{ car.Date_of_Manufacturing.year }}</p></div>
+                            </div>
+                            <div class="container">
+                                <div class="row">
+                                    <div class="card-pic" class="col-12">
+                                        <img src="{% static 'assets/images/team1.jpg' %}" />
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ car.Model.Car_Model_Name}}</div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                            </div>
+                            <div class="row py-2">
+                                <div class="col-6 car-modal">{{ car.Registration_State }}</div>
+                                <div class="col-6"><p class="float-right car-number">{{ car.Card_Registration_Number }}</p></div>
+                            </div>
+                            <h5>Rs. {{ car.Price }}</h5>
+                            <div style="box-sizing: border-box;" class="car-button">
+                                <div class="btn-car">
+                                    <a href="{% url 'CarsifyApp:Viewdetails' car.id %}"><button>view details</button></a>
+                                </div>
+                                <div class="heart-car">
+                                    <i class="fa fa-heart"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+{% endfor %}
