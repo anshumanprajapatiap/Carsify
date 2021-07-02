@@ -17,14 +17,13 @@ class ViewAdmin(ImportExportModelAdmin):
 class ViewAdmin(ImportExportModelAdmin):
     pass
 
-
 #car
-@admin.register(Car_Company, Car_Model, Car_Fuel, Transmission_Type)
+@admin.register(Car_Company, Car_Model, Car_Fuel, Transmission_Type, Number_of_Owners)
 class ViewAdmin(ImportExportModelAdmin):
     pass
 
 #individual car
-@admin.register(Individual_Car_Details, UserFavouriteCars)
+@admin.register(Individual_Car_Details, UserFavouriteCars, Individual_Car_Images)
 class ViewAdmin(ImportExportModelAdmin):
     pass
 

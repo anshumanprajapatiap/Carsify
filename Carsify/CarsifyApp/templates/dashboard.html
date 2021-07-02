@@ -94,6 +94,7 @@
                             </li>
                             <li><i class="fa fa-plus third"></i>Body Type
                                 <ul class="inner-refineby three">
+
                                     <li> <input type="checkbox">Hatchback</li>
                                     <li> <input type="checkbox">Sedan</li>
                                     <li> <input type="checkbox">SUV</li>
@@ -103,16 +104,26 @@
                             </li>
                             <li><i class="fa fa-plus fourth"></i>No. of Owners
                                 <ul class="inner-refineby four">
-                                    <li> <input type="checkbox">1<sup>st</sup> Owner</li>
-                                    <li> <input type="checkbox">2<sup>nd</sup> Owner</li>
-                                    <li> <input type="checkbox">3<sup>rd</sup> Owner</li>
-                                    <li> <input type="checkbox">4<sup>th</sup> Owner and Above</li>
+
+                                     {% for owner in owners %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="owner" value="{{ owner.id }}" type="checkbox">
+
+                                        {{owner.Owners}} <sup>{{owner}}</sup> Owner</li>
+
+                                    {% endfor %}
+
                                 </ul>
                             </li>
                             <li><i class="fa fa-plus fifth"></i>Transmission Type
                                 <ul class="inner-refineby five">
-                                    <li> <input type="checkbox">Automatic</li>
-                                    <li> <input type="checkbox">Manual</li>
+
+                                    {% for transmission in transmission_type %}
+                                     <li>
+                                        <input class="filter-checkbox" data-filter="transmission" value="{{ transmission.id }}" type="checkbox">
+                                        {{transmission}}</li>
+                                    {% endfor %}
+
                                 </ul>
                             </li>
                             <label class="refine_label" for="">Registered Location</label>
@@ -129,8 +140,14 @@
                             </div>
                             <label class="refine_label" for="">Price</label>
                             <div class="inputs">
+
+                               <input type="range" min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}} id="rangeInput" oninput="maxPrice.value=this.value"/>
+                               <input type="number" value={{Minmaxprice.Price__min}} min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}}  placeholder="Max" onkeyup="rangeInput.value=this.value" id="maxPrice" class="model_year"/>
+
+                                <!--
                                 <input type="number" value="0" class="model_year">
                                 <input type="number" placeholder="Max" class="model_year">
+                                -->
                             </div>
                         </ul>
 

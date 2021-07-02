@@ -5,6 +5,7 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth import login, logout, authenticate
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
+from django.db.models import Min,Max
 # Create your views here.
 def Index(request):
     News = False
@@ -133,12 +134,16 @@ def Dashboard(request):
     car_data = Individual_Car_Details.objects.all()
     car_company_data = Car_Company.objects.all()
     fuels = Car_Fuel.objects.all()
+    transmission_type = Transmission_Type.objects.all()
+    owners = Number_of_Owners.objects.all()
+    minmaxPrice = Individual_Car_Details.objects.aggregate(Min('Price'), Max('Price'))
 
     if request.GET:
         q = request.GET['q']
         car_data = Individual_Car_Details.objects.filter(Company__icotanins=q).order_by('-id')
 
-    dic = {'car_data': car_data, 'car_company_data': car_company_data, 'fuels':fuels}
+    dic = {'car_data': car_data, 'car_company_data': car_company_data, \
+           'fuels':fuels,'transmission_type':transmission_type,'owners':owners, 'Minmaxprice':minmaxPrice}
 
     return render(request, 'dashboard.html', dic)
 
@@ -148,10 +153,17 @@ def Dashboard(request):
 #filter data
 def filter_data(request):
     car_company = request.GET.getlist('company_of_car[]')
-    print(car_company)
     fuel = request.GET.getlist('fuel[]')
+    transmission_type = request.GET.getlist('transmission[]')
+    owners = request.GET.getlist('owner')
+    minPrice = request.GET['minPrice']
+    maxPrice = request.GET['maxPrice']
 
     car_data = Individual_Car_Details.objects.all().order_by('-id')
+    print(minPrice, '  -  ', maxPrice)
+    #price
+    car_data = car_data.filter(Price__gte=minPrice)
+    car_data = car_data.filter(Price__lte=maxPrice)
 
     #filters
     if len(car_company) > 0:
@@ -159,6 +171,12 @@ def filter_data(request):
 
     if len(fuel) > 0:
         car_data = car_data.filter(Fuel_Type__id__in=fuel).distinct()
+
+    if len(transmission_type) > 0:
+        car_data = car_data.filter(Transmission__id__in=transmission_type).distinct()
+
+    if len(owners) > 0:
+        car_data = car_data.filter(Owners__id__in=owners).distinct()
 
     t = render_to_string('allcarlist.html', {'car_data': car_data})
     return JsonResponse({'data':t})

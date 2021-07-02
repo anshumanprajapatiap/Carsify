@@ -82,6 +82,14 @@ class Car_Model(models.Model):
         return self.Company_Name.Car_Company_Name +' -- '+ self.Car_Model_Name
 
 
+class Number_of_Owners(models.Model):
+    Owners = models.IntegerField(null=True)
+    Postfix = models.TextField(null=True)
+
+    def __str__(self):
+        return self.Postfix
+
+
 class Individual_Car_Details(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
     Company = models.ForeignKey(Car_Company,on_delete=models.CASCADE,null=True)
@@ -89,6 +97,7 @@ class Individual_Car_Details(models.Model):
     Registration_State = models.ForeignKey(India_States, on_delete=models.CASCADE, null=True)
     Fuel_Type = models.ForeignKey(Car_Fuel, on_delete=models.CASCADE, null=True)
     Transmission = models.ForeignKey(Transmission_Type, on_delete=models.CASCADE, null=True)
+    Owners = models.ForeignKey(Number_of_Owners,on_delete=models.CASCADE,null=True)
 
     Car_Status = models.BooleanField(default=False)
 
@@ -106,18 +115,19 @@ class Individual_Car_Details(models.Model):
         return self.user.username+' -- '+ self.Card_Registration_Number
 
 
+
 class Individual_Car_Images(models.Model):
     carid = models.ForeignKey(Individual_Car_Details,on_delete=models.CASCADE,null=True)
-    Image1 = models.ImageField(null=True)
-    Image2 = models.ImageField(null=True)
-    Image3 = models.ImageField(null=True)
-    Image4 = models.ImageField(null=True)
-    Image5 = models.ImageField(null=True)
-    Image6 = models.ImageField(null=True)
-    Image7 = models.ImageField(null=True)
-    Image8 = models.ImageField(null=True)
-    Image9 = models.ImageField(null=True)
-    Image10 = models.ImageField(null=True)
+    Image1 = models.ImageField(null=True, default=None)
+    Image2 = models.ImageField(null=True, default=None)
+    Image3 = models.ImageField(null=True, default=None)
+    Image4 = models.ImageField(null=True, default=None)
+    Image5 = models.ImageField(null=True, default=None)
+    Image6 = models.ImageField(null=True, default=None)
+    Image7 = models.ImageField(null=True, default=None)
+    Image8 = models.ImageField(null=True, default=None)
+    Image9 = models.ImageField(null=True, default=None)
+    Image10 = models.ImageField(null=True, default=None)
 
     def __str__(self):
         return self.carid
