@@ -89,6 +89,11 @@ class Number_of_Owners(models.Model):
     def __str__(self):
         return self.Postfix
 
+class Car_Body_Type(models.Model):
+    body_type = models.TextField(null=True)
+
+    def __str__(self):
+        return self.body_type
 
 class Individual_Car_Details(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE,null=True)
@@ -98,7 +103,7 @@ class Individual_Car_Details(models.Model):
     Fuel_Type = models.ForeignKey(Car_Fuel, on_delete=models.CASCADE, null=True)
     Transmission = models.ForeignKey(Transmission_Type, on_delete=models.CASCADE, null=True)
     Owners = models.ForeignKey(Number_of_Owners,on_delete=models.CASCADE,null=True)
-
+    Body_Type = models.ForeignKey(Car_Body_Type,on_delete=models.CASCADE,null=True)
     Car_Status = models.BooleanField(default=False)
 
     Date_of_Manufacturing = models.DateField(null=True)

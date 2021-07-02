@@ -6,6 +6,7 @@ from django.contrib.auth import login, logout, authenticate
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.db.models import Min,Max
+import datetime
 # Create your views here.
 def Index(request):
     News = False
@@ -136,14 +137,18 @@ def Dashboard(request):
     fuels = Car_Fuel.objects.all()
     transmission_type = Transmission_Type.objects.all()
     owners = Number_of_Owners.objects.all()
+    Body_Types = Car_Body_Type.objects.all()
     minmaxPrice = Individual_Car_Details.objects.aggregate(Min('Price'), Max('Price'))
+    minmaxYear = Individual_Car_Details.objects.aggregate(Min('Date_of_Manufacturing'), Max('Date_of_Manufacturing'))
+    minmaxKm = Individual_Car_Details.objects.aggregate(Min('KM'), Max('KM'))
 
     if request.GET:
         q = request.GET['q']
         car_data = Individual_Car_Details.objects.filter(Company__icotanins=q).order_by('-id')
 
     dic = {'car_data': car_data, 'car_company_data': car_company_data, \
-           'fuels':fuels,'transmission_type':transmission_type,'owners':owners, 'Minmaxprice':minmaxPrice}
+           'fuels':fuels,'transmission_type':transmission_type,'owners':owners, \
+           'car_body_types':Body_Types, 'Minmaxprice':minmaxPrice, 'minmaxYear': minmaxYear, 'minmaxKm': minmaxKm}
 
     return render(request, 'dashboard.html', dic)
 
@@ -155,15 +160,33 @@ def filter_data(request):
     car_company = request.GET.getlist('company_of_car[]')
     fuel = request.GET.getlist('fuel[]')
     transmission_type = request.GET.getlist('transmission[]')
-    owners = request.GET.getlist('owner')
+    owners = request.GET.getlist('owner[]')
+    car_body_type = request.GET.getlist('car_body_type[]')
     minPrice = request.GET['minPrice']
     maxPrice = request.GET['maxPrice']
+    minYear = request.GET['minYear']
+    maxYear = request.GET['maxYear']
+    minKm = request.GET['minKm']
+    maxKm = request.GET['maxKm']
 
     car_data = Individual_Car_Details.objects.all().order_by('-id')
-    print(minPrice, '  -  ', maxPrice)
+
     #price
     car_data = car_data.filter(Price__gte=minPrice)
     car_data = car_data.filter(Price__lte=maxPrice)
+
+    #Km
+    car_data = car_data.filter(KM__gte= minKm)
+    car_data = car_data.filter(KM__lte= maxKm)
+
+    #Year
+    minYeardate = datetime.date(int(minYear), 1, 1)
+    maxYeardate = datetime.date(int(maxYear), 12, 31)
+    print(minYeardate, maxYeardate)
+    car_data = car_data.filter(Date_of_Manufacturing__gte= minYeardate)
+    car_data = car_data.filter(Date_of_Manufacturing__lte= maxYeardate)
+
+
 
     #filters
     if len(car_company) > 0:
@@ -177,6 +200,9 @@ def filter_data(request):
 
     if len(owners) > 0:
         car_data = car_data.filter(Owners__id__in=owners).distinct()
+
+    if len(car_body_type) > 0:
+        car_data = car_data.filter(Body_Type__id__in=car_body_type).distinct()
 
     t = render_to_string('allcarlist.html', {'car_data': car_data})
     return JsonResponse({'data':t})

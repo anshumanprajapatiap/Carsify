@@ -2,7 +2,7 @@ $(document).ready(function(){
         $(".ajaxloader").hide();
 
         // Product Filter Start
-        $(".filter-checkbox, #rangeInput").on('click, change',function(){
+        $(".filter-checkbox, #rangeInput, #rangeInputYear,#rangeInputKm" ).on('click, change, change, change',function(){
             var _filterObj={};
 
             //price
@@ -10,6 +10,20 @@ $(document).ready(function(){
             var _maxPrice=$('#maxPrice').val();
             _filterObj.minPrice=_minPrice;
             _filterObj.maxPrice=_maxPrice;
+
+            //Year
+
+            var _minYear=$('#maxYear').attr('min');
+            var _maxYear=$('#maxYear').val();
+            _filterObj.minYear=_minYear;
+            _filterObj.maxYear=_maxYear;
+
+
+            //Km
+            var _minKm=$('#maxKm').attr('min');
+            var _maxKm=$('#maxKm').val();
+            _filterObj.minKm=_minKm;
+            _filterObj.maxKm=_maxKm;
 
 
             $(".filter-checkbox").each(function(index,ele){

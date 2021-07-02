@@ -18,7 +18,7 @@ class ViewAdmin(ImportExportModelAdmin):
     pass
 
 #car
-@admin.register(Car_Company, Car_Model, Car_Fuel, Transmission_Type, Number_of_Owners)
+@admin.register(Car_Company, Car_Model, Car_Fuel, Transmission_Type, Number_of_Owners, Car_Body_Type)
 class ViewAdmin(ImportExportModelAdmin):
     pass
 
