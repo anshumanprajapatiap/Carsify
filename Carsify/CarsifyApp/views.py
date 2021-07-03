@@ -133,7 +133,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Dashboard(request):
-    car_data = Individual_Car_Details.objects.all()
+    car_data = Individual_Car_Details.objects.filter(Car_Status=False)
     car_company_data = Car_Company.objects.all()
     fuels = Car_Fuel.objects.all()
     transmission_type = Transmission_Type.objects.all()
@@ -170,7 +170,7 @@ def filter_data(request):
     minKm = request.GET['minKm']
     maxKm = request.GET['maxKm']
 
-    car_data = Individual_Car_Details.objects.all().order_by('-id')
+    car_data = Individual_Car_Details.objects.filter(Car_Status=False)
 
     #price
     car_data = car_data.filter(Price__gte=minPrice)
@@ -315,6 +315,8 @@ def Favourites(request):
     dic = {'f_Car':data}
     return render(request, 'favourites.html', dic)
 
+
+
 @login_required(login_url='CarsifyApp:LoginSignup')
 def MYvehicle(request):
     data = Individual_Car_Details.objects.filter(user=request.user)
@@ -325,46 +327,61 @@ def MYvehicle(request):
 def Edit_Vehicle_Details(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     dic={'data':data}
-    return render(request, 'index.html', dic)
+    return render(request, 'editmyvehicle.html', dic)
 
 #edit individual and update function
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Edit_Update(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     dic = {'data': data}
-    return render(request, 'index.html', dic)
+    return redirect('CarsifyApp:MYvehicle')
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Disable_My_Vehicle(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
-    data.Individual_Car_Details.objects.update(Car_Status=True)
+    
+    Individual_Car_Details.objects.update(id = data, Car_Status=True)
+    return redirect('CarsifyApp:MYvehicle')
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Delete_My_Car(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     data.delete()
-
     return redirect('CarsifyApp:MYvehicle')
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Viewdetails(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     images = Individual_Car_Images.objects.filter(carid=data)
+    cdata = UserFavouriteCars.objects.filter(carid=data)
+    
     a_list = len(images)
     noimages = list(range(1, a_list+1))
 
-    print(noimages)
+    print(cdata)
         
-    dic ={'data':data, 'images':images, 'noimages':noimages}
+    dic ={'data':data, 'images':images, 'noimages':noimages, 'cdata':cdata}
     return render(request, 'viewdetails.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Delete_From_Favourite(request,cid):
     data = UserFavouriteCars.objects.get(id=cid)
+    
     data.delete()
     return redirect('CarsifyApp:Favourites')
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Add_to_Favourite(request, cid):
-    UserFavouriteCars.objects.create(user=request.user, carid=cid)
+    all = False
+    data = Individual_Car_Details.objects.get(id=cid)
+    try:
+        there = UserFavouriteCars.objects.get(carid=data)
+    except:
+        there=None
+
+    if there:
+        all=True
+    else:
+        UserFavouriteCars.objects.create(user=request.user, carid=data)
+
     return redirect('CarsifyApp:Dashboard')

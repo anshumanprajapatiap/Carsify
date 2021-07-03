@@ -9,7 +9,7 @@
                             <div class="container">
                                 <div class="row">
                                     <div class="card-pic" class="col-12">
-                                        <img src="{% static 'assets/images/team1.jpg' %}" />
+                                        <img src="{{ car.Showimage.url }}" />
                                     </div>
                                 </div>
                             </div>
@@ -27,7 +27,7 @@
                                     <a href="{% url 'CarsifyApp:Viewdetails' car.id %}"><button>view details</button></a>
                                 </div>
                                 <div class="heart-car">
-                                    <i class="fa fa-heart"></i>
+                                    <a href="{% url 'CarsifyApp:Add_to_Favourite' car.id %}"><i class="fa fa-heart"></i></a>
                                 </div>
                             </div>
                         </div>

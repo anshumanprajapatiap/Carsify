@@ -28,10 +28,17 @@ urlpatterns = [
     path('filter-data', filter_data, name='filter_data'),
 
     path('myvehicle/', MYvehicle, name='MYvehicle'),
+
+    #vehicle status
+    path('editvehicle/<int:cid>', Edit_Vehicle_Details, name='Edit_Vehicle_Details'),
+    path('disable/<int:cid>', Disable_My_Vehicle, name='Disable_My_Vehicle'),
+    path('deletemycar/<int:cid>', Delete_My_Car, name='Delete_My_Car'),
+
+
     path('viewdetails/<int:cid>', Viewdetails, name='Viewdetails'),
     path('favourites/', Favourites, name='Favourites'),
-    path('delete_from_favourite/ <int:cid>', Delete_From_Favourite, name='Delete_From_Favourite'),
-    path('add_favourite_car/ <int:cid>',Add_to_Favourite, name='Add_to_Favourite'),
+    path('delete_from_favourite/<int:cid>', Delete_From_Favourite, name='Delete_From_Favourite'),
+    path('add_favourite_car/<int:cid>',Add_to_Favourite, name='Add_to_Favourite'),
 
 
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
