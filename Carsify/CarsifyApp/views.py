@@ -1,3 +1,4 @@
+from django.db.models.base import Model
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.models import User
@@ -226,24 +227,45 @@ def Addcar(request):
         print(request.POST)
         x = request.POST
         companyname = x['companyname']
-        modelname = x['modelname']
+        companyobj = Car_Company.objects.get(id=companyname)
+        modelidd = x['modelname']
+        modelname = Car_Model.objects.get(id=modelidd)
         VehicleNumber = x['VehicleNumber']
         Varient = x['Varient']
-        RegisteredState = x['RegisteredState']
+        RegisteredStateidd = x['RegisteredState']
+        RegisteredState = India_States.objects.get(id=RegisteredStateidd)
         Registeredcity = x['Registeredcity']
-        NumberofOwners = x['NumberofOwners']
+        NumberofOwnersidd = x['NumberofOwners']
+        NumberofOwners = Number_of_Owners.objects.get(id=NumberofOwnersidd)
         Manufacturing = x['Manufacturing']
-        VehicalType = x['VehicalType']
-        Transmission = x['Transmission']
+        DManufacturing = datetime.date(int(Manufacturing), 1, 1)
+        VehicalTypeidd = x['VehicalType']
+        VehicalType = Car_Body_Type.objects.get(id=VehicalTypeidd)
+        Transmissionidd = x['Transmission']
+        Transmission = Transmission_Type.objects.get(id=Transmissionidd)
         Km = x['Km']
         color = x['color']
-        FuelType = x['FuelType']
+        FuelTypeidd = x['FuelType']
+        FuelType = Car_Fuel.objects.get(id=FuelTypeidd)
         Price = x['Price']
         Insurance = x['Insurance']
         InsuranceType = x['InsuranceType']
         Comment = x['Comment']
 
+        #handeling multiple images
+        Images = request.FILES.getlist('Images')
+        showimage = Images[0]
+
         #create a vehicle object here
+        cid = Individual_Car_Details.objects.create(user=request.user, Company=companyobj, Model=modelname,\
+            Registration_State=RegisteredState, Fuel_Type =FuelType, Transmission=Transmission, Owners=NumberofOwners,\
+            Body_Type=VehicalType, Date_of_Manufacturing = DManufacturing, Card_Registration_Number=VehicleNumber,\
+            Car_Varient=Varient, KM=Km, Color=color, Price=Price, Insurance=Insurance, Insurance_Type=InsuranceType, \
+            City=Registeredcity, Discription=Comment, Showimage=showimage)
+
+        #creating image objects
+        for image in Images:
+            photo = Individual_Car_Images.objects.create(carid=cid, Image=image)
 
         #return success page
         return redirect('CarsifyApp:Addcarsuccess')
@@ -263,7 +285,7 @@ def json_Car_add(request):
 
 def json_Car_model(request, *args, **kwarg):
     selecedted_car = kwarg.get('car')
-    obj_models = list(Car_Model.objects.filter(Company_Name__Car_Company_Name=selecedted_car).values())
+    obj_models = list(Car_Model.objects.filter(Company_Name=selecedted_car).values())
 
     return JsonResponse({'data':obj_models})
 
@@ -327,7 +349,13 @@ def Delete_My_Car(request, cid):
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Viewdetails(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
-    dic ={'data':data}
+    images = Individual_Car_Images.objects.filter(carid=data)
+    a_list = len(images)
+    noimages = list(range(1, a_list+1))
+
+    print(noimages)
+        
+    dic ={'data':data, 'images':images, 'noimages':noimages}
     return render(request, 'viewdetails.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')

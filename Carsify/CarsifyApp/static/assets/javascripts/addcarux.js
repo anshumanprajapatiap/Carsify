@@ -19,7 +19,9 @@ $.ajax({
             //<option value="{{car_id}}" >{{car}}</option>
             const option = document.createElement('option')
             option.textContent = item.Car_Company_Name
+            option.setAttribute('value', item.id)
             option.setAttribute('class', 'caritem')
+            
             option.setAttribute('data-value', item.id)
             carDataBox.appendChild(option)
         })
@@ -47,8 +49,9 @@ carInput.addEventListener('change', e=>{
             modelsData.map(item=>{
                 const option = document.createElement('option')
                 option.textContent = item.Car_Model_Name
-                option.setAttribute('class', 'caritem')
+                option.setAttribute('class', 'modelitem')
                 option.setAttribute('data-value', item.id)
+                option.setAttribute('value', item.id)
                 modelsDataBox.appendChild(option)
             })
         },

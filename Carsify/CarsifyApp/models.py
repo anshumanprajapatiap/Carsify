@@ -100,6 +100,7 @@ class Individual_Car_Details(models.Model):
     Company = models.ForeignKey(Car_Company,on_delete=models.CASCADE,null=True)
     Model = models.ForeignKey(Car_Model,on_delete=models.CASCADE,null=True)
     Registration_State = models.ForeignKey(India_States, on_delete=models.CASCADE, null=True)
+    City = models.TextField(null=True)
     Fuel_Type = models.ForeignKey(Car_Fuel, on_delete=models.CASCADE, null=True)
     Transmission = models.ForeignKey(Transmission_Type, on_delete=models.CASCADE, null=True)
     Owners = models.ForeignKey(Number_of_Owners,on_delete=models.CASCADE,null=True)
@@ -110,11 +111,12 @@ class Individual_Car_Details(models.Model):
     Card_Registration_Number = models.TextField(null=True)
     Car_Varient = models.TextField(null=True)
     KM = models.IntegerField(null=True)
+    Showimage = models.ImageField(null=False, blank=False)
     Color = models.TextField(null=True)
-    Images = models.ImageField(null=True)
     Price = models.IntegerField(null=True)
     Insurance = models.TextField(null=True)
     Insurance_Type = models.TextField(null=True)
+    Discription = models.TextField(null=True)
 
     def __str__(self):
         return self.user.username+' -- '+ self.Card_Registration_Number
@@ -123,19 +125,10 @@ class Individual_Car_Details(models.Model):
 
 class Individual_Car_Images(models.Model):
     carid = models.ForeignKey(Individual_Car_Details,on_delete=models.CASCADE,null=True)
-    Image1 = models.ImageField(null=True, default=None)
-    Image2 = models.ImageField(null=True, default=None)
-    Image3 = models.ImageField(null=True, default=None)
-    Image4 = models.ImageField(null=True, default=None)
-    Image5 = models.ImageField(null=True, default=None)
-    Image6 = models.ImageField(null=True, default=None)
-    Image7 = models.ImageField(null=True, default=None)
-    Image8 = models.ImageField(null=True, default=None)
-    Image9 = models.ImageField(null=True, default=None)
-    Image10 = models.ImageField(null=True, default=None)
+    Image = models.ImageField(null=False, blank=False)
 
     def __str__(self):
-        return self.carid
+        return self.carid.user.username +' -- '+ self.carid.Card_Registration_Number
 
 #user Favourites cars
 class UserFavouriteCars(models.Model):
