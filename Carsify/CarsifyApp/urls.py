@@ -12,12 +12,19 @@ urlpatterns = [
     path('signup/', Signup, name='Signup'),
     #dashboard
     path('dashboard/', Dashboard, name='Dashboard'),
+
     path('addcar/', Addcar, name='Addcar'),
+    path('addcarsuccess/', Addcarsuccess, name='Addcarsuccess'),
+
+    #addcardadvaceux
+    path('cars-json', json_Car_add, name='cars-json'),
+    path('addcar/models-json/<str:car>', json_Car_model, name='models-json'),
+
+    #profile
     path('profile/', Profile, name='Profile'),
     path('editprofile/', Editprofile, name='Editprofile'),
 
     #filterdata
-
     path('filter-data', filter_data, name='filter_data'),
 
     path('myvehicle/', MYvehicle, name='MYvehicle'),

@@ -207,13 +207,65 @@ def filter_data(request):
     t = render_to_string('allcarlist.html', {'car_data': car_data})
     return JsonResponse({'data':t})
 
+def Addcarsuccess(request):
+
+    return render(request, 'addcarsuccess.html')
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Addcar(request):
     car_company = Car_Company.objects.all()
+    car_model = Car_Model.objects.all()
+    registeredstate = India_States.objects.all()
+    numberofowners = Number_of_Owners.objects.all()
+    vehicletype = Car_Body_Type.objects.all()
+    tansmission = Transmission_Type.objects.all()
+    fueltype = Car_Fuel.objects.all()
 
-    dic = {'car_company':car_company}
+
+    if request.method == "POST":
+        print(request.POST)
+        x = request.POST
+        companyname = x['companyname']
+        modelname = x['modelname']
+        VehicleNumber = x['VehicleNumber']
+        Varient = x['Varient']
+        RegisteredState = x['RegisteredState']
+        Registeredcity = x['Registeredcity']
+        NumberofOwners = x['NumberofOwners']
+        Manufacturing = x['Manufacturing']
+        VehicalType = x['VehicalType']
+        Transmission = x['Transmission']
+        Km = x['Km']
+        color = x['color']
+        FuelType = x['FuelType']
+        Price = x['Price']
+        Insurance = x['Insurance']
+        InsuranceType = x['InsuranceType']
+        Comment = x['Comment']
+
+        #create a vehicle object here
+
+        #return success page
+        return redirect('CarsifyApp:Addcarsuccess')
+        
+    
+    
+    dic = {'car_company':car_company, 'car_model':car_model, 'registeredstate':registeredstate,\
+            'numberofowners': numberofowners, 'vehicletype': vehicletype, 'tansmission':tansmission,\
+           'fueltype':fueltype}
+
     return render(request, 'addcar.html', dic)
+
+def json_Car_add(request):
+    car_company = list(Car_Company.objects.values())
+
+    return JsonResponse({'data':car_company})
+
+def json_Car_model(request, *args, **kwarg):
+    selecedted_car = kwarg.get('car')
+    obj_models = list(Car_Model.objects.filter(Company_Name__Car_Company_Name=selecedted_car).values())
+
+    return JsonResponse({'data':obj_models})
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Profile(request):

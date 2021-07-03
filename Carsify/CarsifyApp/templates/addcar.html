@@ -101,9 +101,13 @@
       
                 <select id="companyname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="companyname" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please Select the company" >
                   <option disabled selected value> -- select an option -- </option>
-                  {% for i in car_company %}
-                  <option value="{{i}}" >{{i}}</option>
+                  
+                 
+                  <!--
+                  {% for car in car_company %}
+                  <option value="{{car_id}}" >{{car}}</option>
                   {% endfor %}
+                  -->
                 </select>
                 <span class="error1" style="display: none;">
                     <i class="error-log fa fa-exclamation-triangle"></i>
@@ -115,11 +119,30 @@
               <div class="hs_modelname field hs-form-field">
               
                 <label for="modelname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983">Model *</label>
-      
+                
+                <select id="modelname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="modelname" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter your cars model no" >
+                  <option class="default-model" id="model-text" disabled selected value> -- select an option -- </option>
+                 <!--
+                  {% for model in car_model %}
+                  <div class="caritem" data-value="{{model_id}}" >{{model.Car_Model_Name}}</div>
+                  {% endfor %}
+                  -->
+                  <!--
+                  {% for model in car_model %}
+                  <option value="{{model_id}}" >{{model.Car_Model_Name}}</option>
+                  {% endfor %}
+                  -->
+                </select>
+                <span class="error1" style="display: none;">
+                    <i class="error-log fa fa-exclamation-triangle"></i>
+                </span>
+
+                <!--
                 <input id="modelname-99a6d115-5e68-4355-a7d0-529207feb0b3_2983" name="modelname" required="required" type="text" value="" placeholder="" data-rule-required="true" data-msg-required="Please enter your cars model no" >
                 <span class="error1" style="display: none;">
                     <i class="error-log fa fa-exclamation-triangle"></i>
                 </span>
+                -->
               </div>
           <!-- End What's Your Email Field -->
       
@@ -469,7 +492,8 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
         <script src="{% static 'assets/javascripts/addcar.js' %}"></script>
         <script src="{% static 'assets/javascripts/navigation.js' %}"></script>
-    <!-- Optional JavaScript -->
+        <script src="{% static 'assets/javascripts/addcarux.js' %}"></script>
+        <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
 
   </body>
