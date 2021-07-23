@@ -1,4 +1,6 @@
 {% load static %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -48,6 +50,7 @@
             </div>
             <p class="show_pass"><input class="showpass" type="checkbox"><span class="showpass_label">Show Password</span></p>
             <input type="submit" value="Login" class="btn solid" />
+            <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i> </a>
             <label style="cursor: pointer;color:blue ;">Forgot Password ?</label>
           </form>
 
@@ -100,6 +103,7 @@
               <i class="fa fa-plus" id="button_three" aria-hidden="true"></i>
             </ul>
           </label> -->
+          <a href="{% provider_login_url 'google' %}"><i class="fab fa-google"></i> </a>
             <input type="submit" class="btn" value="Sign up" />
           </form>
         </div>

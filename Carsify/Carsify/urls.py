@@ -22,7 +22,8 @@ import CarsifyApp.urls
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(CarsifyApp.urls, namespace='CarsifyApp')),
-
+    path('accounts/', include('allauth.urls')),
+    
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 

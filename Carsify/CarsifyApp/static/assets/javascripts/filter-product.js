@@ -2,8 +2,13 @@ $(document).ready(function(){
         $(".ajaxloader").hide();
 
         // Product Filter Start
-        $(".filter-checkbox, #rangeInput, #rangeInputYear,#rangeInputKm" ).on('click, change, change, change',function(){
+        $(".filter-checkbox, #rangeInput, #rangeInputYear,#rangeInputKm, #cars" ).on('click, change, change, change, change',function(){
             var _filterObj={};
+
+            //orderby
+            var _orderby = $('#cars').val();
+            _filterObj.orderby=_orderby;
+            
 
             //price
             var _minPrice=$('#maxPrice').attr('min');

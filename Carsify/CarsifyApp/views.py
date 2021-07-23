@@ -1,4 +1,5 @@
 from django.db.models.base import Model
+from django.db.models.query import RawQuerySet
 from django.shortcuts import render, redirect
 from .models import *
 from django.contrib.auth.models import User
@@ -40,6 +41,10 @@ def Index(request):
     d = {"News": News, "Con": Con}
 
     return render(request, 'index.html', d)
+
+
+
+
 
 '''
 def Login_Signup(request):
@@ -124,6 +129,7 @@ def Signup(request):
 
         return redirect('CarsifyApp:LoginSignup')
 
+
 def Logout(request):
     logout(request)
     return redirect('CarsifyApp:LoginSignup')
@@ -133,6 +139,7 @@ from django.contrib.auth.decorators import login_required
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Dashboard(request):
+    
     car_data = Individual_Car_Details.objects.filter(Car_Status=False)
     car_company_data = Car_Company.objects.all()
     fuels = Car_Fuel.objects.all()
@@ -171,6 +178,22 @@ def filter_data(request):
     maxKm = request.GET['maxKm']
 
     car_data = Individual_Car_Details.objects.filter(Car_Status=False)
+
+    #sort
+    sort = request.GET['orderby']
+
+    if sort=="price+":
+        car_data = car_data.order_by('-Price')
+        # car_data = request.GET.get('sort','-Price')
+        
+    elif sort == "price-":
+        car_data = car_data.order_by('Price')
+
+    elif sort == "year+":
+        car_data = car_data.order_by('-Date_of_Manufacturing')
+    elif sort == "year-":
+        car_data = car_data.order_by('Date_of_Manufacturing')
+
 
     #price
     car_data = car_data.filter(Price__gte=minPrice)
@@ -291,12 +314,25 @@ def json_Car_model(request, *args, **kwarg):
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Profile(request):
-    useralldata = UserProfile.objects.get(user=request.user)
-    if request.method == "POST":
-        img = request.FILES["image"]
-        useralldata.ProfileImg = img
-        useralldata.save()
-        return redirect('CarsifyApp:Profile')
+    
+    try:
+        useralldata = UserProfile.objects.get(user=request.user)
+    except:
+        useralldata = None
+
+    if useralldata:
+        if request.method == "POST":
+            img = request.FILES["image"]
+            useralldata.ProfileImg = img
+            useralldata.save()
+            return redirect('CarsifyApp:Profile')
+    
+    else:
+        user = request.user
+        UserProfile.objects.create(user=user)
+        type = Address_Type.objects.all()
+        for i in type:
+            Address.objects.create(user=user, Address_Typee=i)
 
     address = Address.objects.filter(user=request.user)
 
