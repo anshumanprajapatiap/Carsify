@@ -133,6 +133,9 @@ class Individual_Car_Images(models.Model):
     def __str__(self):
         return self.carid.user.username +' -- '+ self.carid.Card_Registration_Number
 
+    def save_image(self):
+        pic = self.Image
+        
 
 #user Favourites cars
 class UserFavouriteCars(models.Model):

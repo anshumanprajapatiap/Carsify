@@ -231,6 +231,7 @@ def filter_data(request):
     t = render_to_string('allcarlist.html', {'car_data': car_data})
     return JsonResponse({'data':t})
 
+
 def Addcarsuccess(request):
 
     return render(request, 'addcarsuccess.html')
@@ -390,6 +391,7 @@ def Viewdetails(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     images = Individual_Car_Images.objects.filter(carid=data)
     cdata = UserFavouriteCars.objects.filter(carid=data)
+    
     
     a_list = len(images)
     noimages = list(range(1, a_list+1))
