@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+#import cv2
+#import numpy as np
+
 # Create your models here.
 class India_States(models.Model):
     State_Name = models.TextField(null=True)
@@ -129,6 +132,7 @@ class Individual_Car_Images(models.Model):
 
     def __str__(self):
         return self.carid.user.username +' -- '+ self.carid.Card_Registration_Number
+
 
 #user Favourites cars
 class UserFavouriteCars(models.Model):
