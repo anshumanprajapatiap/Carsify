@@ -1,5 +1,3 @@
 # Carsify
 
-user id = usaid 
-
-passowrd - aditi
+user id = uk , ukg
