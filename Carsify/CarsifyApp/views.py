@@ -343,7 +343,40 @@ def Profile(request):
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Editprofile(request):
 
-    return render(request, 'editprofile.html')
+
+    try:
+        useralldata = UserProfile.objects.get(user=request.user)
+    except:
+        useralldata = None
+
+    if useralldata==None:
+        user = request.user
+        UserProfile.objects.create(user=user)
+        type = Address_Type.objects.all()
+        for i in type:
+            Address.objects.create(user=user, Address_Typee=i)
+    else:
+        if request.method == 'POST':
+            x = request.POST
+            print(x)
+            addhar = x['addhar']
+            pan = x['pan']
+            voterid = x['voterid']
+            phone = x['phone']
+            #UserProfile.objects.get(user=request.user).update(ContactNo=phone)
+
+            useralldata.ContactNo = phone
+            useralldata.AddharNumber = addhar
+            useralldata.PanNumber = pan
+            useralldata.VoterID = voterid
+            useralldata.save()
+
+            return redirect('CarsifyApp:Profile')
+
+    address = Address.objects.filter(user=request.user)
+    dic = {'useralldata':useralldata, 'useraddress': address}
+
+    return render(request, 'editprofile.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Favourites(request):
