@@ -18,11 +18,15 @@ from django.urls import path, include
 from django.conf.urls.static import static
 from django.conf import settings
 import CarsifyApp.urls
+from CarsifyApp.views import *
+from django.conf.urls import url
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include(CarsifyApp.urls, namespace='CarsifyApp')),
-    path('accounts/', include('allauth.urls')),
+    # path('accounts/', include('allauth.urls')),
+    url(r'^login/', Login_Signup, name="google_login" ),
+    url(r'^signup/', Signup, name="Signup" ),
     
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

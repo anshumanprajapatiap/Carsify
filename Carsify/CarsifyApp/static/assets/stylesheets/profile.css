@@ -18,7 +18,7 @@ body{
 .row1>div>a>i{
     margin-right: 10px;
 }
-.row1>div>a{
+.row1>div>a, .row>form>a{
     background: #007991;  
 	background: -webkit-linear-gradient(to right, #5ec9a9, #007991);  
 	background: linear-gradient(to right, #5ec9a9, #007991); 

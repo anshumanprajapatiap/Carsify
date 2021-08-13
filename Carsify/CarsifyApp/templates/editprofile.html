@@ -11,11 +11,11 @@
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
     <link rel="stylesheet" href="{% static 'assets/stylesheets/navigation.css' %}">
     <link rel="stylesheet" href="{% static 'assets/stylesheets/profile.css' %}">
-    <link rel="shortcut icon" href="{% static 'assets/images/favicon.jpg' %}" type="image/png">
-    <title>Profile</title>
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/.png">
+    <title>Edit Profile</title>
   </head>
   <body>
-    <!-- navigation -->
+    <!-------------------------------navigation------------------------------------------------->
       <nav>
         <div class="menuicon">
             <span class="fas fa-bars"></span>
@@ -67,29 +67,30 @@
         <div class="row pt-5 row1">
             <div class="col-lg-3 p-0">
                 {% if  useralldata.ProfileImg %}
-                <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
-                {% else %}
-                <img id = "outImage" src="#">
-                {% endif %}
+              <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
+              {% else %}
+              <img id = "outImage" src="{% static 'assets/images/team1.jpg' %}">
+              {% endif %}
             </div>
             <div class="col-lg-9 pt-3">
               <div class="d-flex justify-content-between py-2">
                 <div class="d-md-flex d-sm-block">
                   <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
-                  <p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}}</input>
+                  <p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </input>
                 </div>
-                <!--<h5><a href="profile.html"><i class="fa fa-check"></i>Update</a></h5>-->
+                <button name="profileBtn" type="submit" form="profileForm"><h5><i class="fa fa-check"></i>Update</h5></button>
               </div>
-            <form action="">
-                <input style="display: none;" type="file" name="" id="upload_profile">
+            <a id="new_profile"><i class="fa fa-plus"></i>New Photo</a>
+              <form method="post" action="" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input style="display: none;" onchange="ChangeImage(event)"  type="file" name="image" id="upload_profile">
+                <BR>
+                <button class="btn" type="submit" name="profilePicBtn">Save</button>
             </form>
-            <!--<a id="new_profile"><i class="fa fa-plus"></i>New Photo</a>-->
-              <!-- <h6 class="mt-5"> <i class="fa fa-user"></i> About</h6> -->
             </div>
         </div>
-
-        <form method="post">
-        {% csrf_token %}
+        <form id="profileForm" action="{% url 'CarsifyApp:Editprofile' %}" method="POST">
+          {% csrf_token %}
         <div class="row pt-3 row2">
           <div class="col-lg-3">
             <div class="d-flex">
@@ -97,11 +98,11 @@
               <hr>
             </div>
             <h5>AADHAR NUMBER</h5>
-            <input value={{useralldata.AddharNumber}} type="text" name="addhar"></input>
+            <input type="text" value="{{Aadhar}}" pattern="^[2-9]{1}[0-9]{3}\s{1}[0-9]{4}\s{1}[0-9]{4}$" placeholder="XXXX XXXX XXXX" name="aadhar"></input>
             <h5>PAN NUMBER</h5>
-            <input value={{useralldata.PanNumber}} type="text" name="pan"></input>
+            <input type="text" value={{useralldata.PanNumber}} pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" placeholder="XXXXX0000X" name="panNumber"></input>
             <h5>VOTER ID</h5>
-            <input value={{useralldata.VoterID}} type="text" name="voterid"></input>
+            <input type="text" value={{useralldata.VoterID}} placeholder="XXX0000000" pattern="^[a-zA-Z]{3}[0-9]{7}" name="voterId"></input>
           </div>
           <div class="col-lg-9 contact">
 
@@ -114,36 +115,34 @@
                 <h6><i class="fa fa-phone"></i>Phone Number</h6>
               </div>
               <div class="col-lg-7">
-                <input name="phone" value={{useralldata.ContactNo}} type="text"></input>
+                <input type="text" value={{useralldata.ContactNo}} pattern="^[6-9]{1}[0-9]{9}" placeholder="1234567899" name="contactNo"></input>
               </div>
             </div>
-
-            <button class="upass" type"submit"><i class="fa fa-check"></i>Update</button>
-
-          </form>
-            <!--
             <div class="row">
               <div class="col-lg-5">
                 <h6><i class="fa fa-phone"></i>Email Address</h6>
               </div>
               <div class="col-lg-7">
-                <input value={{useralldata.EmailD}} type="text"></input>
+                <input type="email" value={{useralldata.Email}} placeholder="name@host.com" name="EmailAddress"></input>
               </div>
             </div>
-            -->
-            <!--
             <div class="row">
               <div class="col-lg-5">
                 <h6><i class="fa fa-map-marker"></i>Address</h6>
+                <br/>
               </div>
               <div class="col-lg-7">
-                <textarea value={{useralldata.VoterID}} type="text"> </textarea>
+                <textarea type="text" name="Address" pattern="^[a-zA-Z]{4}+:-[a-zA-Z0-9],[a-zA-Z0-9],[a-zA-Z],[a-zA-Z],[0-9]{6}" placeholder="Address_Type( Home/Work ) :- Apartment_address, Street_address, City, State, Country, Zip_Code">{{useraddress.Address_Typee}}:-{{useraddress.apartment_address}},{{useraddress.street_address}},{{useraddress.City}},{{useraddress.State}},{{useraddress.country}},{{useraddress.zip}}</textarea>
               </div>
+              <p class="text-muted">Enter address in format: <br/>
+                Address_Type( Home/Work ) :- Apartment_address, Street_address, City, State, Country, Zip_Code
+              </p>
             </div>
-            -->
-            
           </div>
         </div>
+      </form>
+      <form id="changePassword" action="{% url 'CarsifyApp:Editprofile' %}" method="POST">
+        {% csrf_token %}
         <div class="row pt-3 row3">
           <div class="col-lg-3"></div>
           <div class="col-lg-9">
@@ -151,28 +150,30 @@
               <h6>Change Password</h6>
               <hr>
             </div>
+            {% if Password %}
+            <div class="row">
+              <div class="col-md-5">
+                <label for="">Current Password</label>
+              </div>
+              <div class="col-md-7">
+                <input type="password" name="currPass">
+              </div>
+            </div>
+            {% endif %}
             <div class="row">
               <div class="col-md-5">
                 <label for="">New Password</label>
               </div>
               <div class="col-md-7">
-                <input type="password">
+                <input type="password" name="newPass">
               </div>
             </div>
             <div class="row">
               <div class="col-md-5">
-                <label for="">New Password</label>
+                <label for="">Enter New Password Again</label>
               </div>
               <div class="col-md-7">
-                <input type="password">
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-md-5">
-                <label for="">New Password</label>
-              </div>
-              <div class="col-md-7">
-                <input type="password">
+                <input type="password" name="rePass">
               </div>           
             </div>
             <div class="row">
@@ -180,16 +181,25 @@
                 
               </div>
               <div class="col-md-7">
-                <button class="upass"> Update Password</button>
+                <button class="upass" type="submit" name="changePass"> Update Password</button>
               </div>           
             </div>
           </div>
          
         </div>
-        
+      </form>
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    {% if alert_flag %}
+    <script>alert("{{msg}}")</script>  
+{% endif %}
+<script>
+  function ChangeImage(e) {
+      var image = document.getElementById("outImage");
+      image.src = URL.createObjectURL(e.target.files[0]);
+  }
+  </script>
     <script>
         document.querySelector('#new_profile').addEventListener('click',function(){
           document.querySelector('#upload_profile').click();

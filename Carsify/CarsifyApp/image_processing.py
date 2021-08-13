@@ -44,5 +44,5 @@ def resize_img(img_path):
 
 
 
-img_path="C:\Users\anshu\OneDrive\Documents\GitHub\Carsify\Carsify\media\c1.jpg"
+img_path="../media/c1.jpeg"
 resize_img(img_path)

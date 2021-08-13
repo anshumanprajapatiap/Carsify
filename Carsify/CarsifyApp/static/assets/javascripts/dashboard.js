@@ -100,6 +100,7 @@
             document.querySelector(".five").style.display="none";
         }
     }
+    
     plus1m.onclick=()=>{
         if(A===1){
             document.querySelector(".onem").style.display="block";

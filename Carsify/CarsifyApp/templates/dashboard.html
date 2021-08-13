@@ -130,10 +130,16 @@
                                     {% endfor %}
 
                                 </ul>
-                            </li>
-
-                            <label class="refine_label" for="">Registered Location</label>
-                            <input type="text" class="regLoc" name="" id="">
+                            </li> 
+                         
+                             <!-- <form method="POST" id="locationForm" action="{% url 'CarsifyApp:filter_data' %}">
+                                 {% csrf_token %} 
+                                <label class="refine_label" for="">Registered Location</label>
+                                <input type="text" class="regLoc" name="registerLocation" id="registerLocation" onchange="document.getElementById('locationBtn').click()">
+                                <button class="d-none" type="submit" id="locationBtn" ></button>
+                            </form>  -->
+                            <!-- <label class="refine_label" for="">Registered Location</label>
+                            <input type="text" class="regLoc" name="registerLocation" id="registerLocation"> -->
 
                             <label class="refine_label" for="">Model Year</label>
                             <div class="inputs">
@@ -141,7 +147,7 @@
                                 <input type="range" min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}} id="rangeInputYear" oninput="maxYear.value=this.value"/>
                                <input type="number" value={{minmaxYear.Date_of_Manufacturing__max.year}} min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}}  placeholder="Max" onkeyup="rangeInputYear.value=this.value" id="maxYear" class="model_year"/>
 
-                                <!--
+                                <!--    
                                 <input type="number" value="2000" placeholder="Min" class="model_year">
                                 <input type="number" placeholder="Max" class="model_year">
                                 -->
@@ -245,11 +251,18 @@
                             <h5>Rs. {{ car.Price }}</h5>
                             <div style="box-sizing: border-box;" class="car-button">
                                 <div class="btn-car">
-                                    <a href="{% url 'CarsifyApp:Viewdetails' car.id %}"><button>view details</button></a>
+                                    <a href="{% url 'CarsifyApp:Viewdetails' car.id %}"><button>View Details</button></a>
                                 </div>
+                                {% if car.id in fav_id %}
                                 <div class="heart-car">
-                                    <a href="{% url 'CarsifyApp:Add_to_Favourite' car.id %}"><i class="fa fa-heart"></i></a>
+                                    <a href="{% url 'CarsifyApp:Delete_From_Favourite' car.id %}" title="Remove from Favourites"><i class="fa fa-heart"></i></a>
+                                 </div>
+                                {% else %}
+                                <div class="heart-car">
+                                    <a href="{% url 'CarsifyApp:Add_to_Favourite' car.id %}" title="Add to Favourites"><i class="far fa-heart"></i></a>
                                 </div>
+                                {% endif %}
+
                             </div>
                         </div>
                     </div>
@@ -336,11 +349,12 @@
                                         {% endfor %}
                                     </ul>
                                 </li>
+                                
                             </ul>
 
 
                             <label class="refine_label" for="">Registered Location</label>
-                            <input type="text" class="regLoc" name="" id="">
+                            <input type="text" class="regLoc" name="loc" data-filter="loc" id="" value="{{loc}}" oninput="loc.value = this.value"> 
                             <label class="refine_label" for="">Model Year</label>
                             <div class="inputs">
 

@@ -1,6 +1,6 @@
-:root{
+:root {
   --main-bg-color: #007991;
-  --secondary-bg-color:#5ec9a9;
+  --secondary-bg-color: #5ec9a9;
 }
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap");
 
@@ -11,28 +11,29 @@
 }
 
 body,
-input , select {
+input,
+select {
   font-family: "Poppins", sans-serif;
 }
-.logo{
+.logo {
   position: absolute;
   z-index: 10;
   width: 170px;
   left: 3%;
   top: -2%;
 }
-.logo img{
+.logo img {
   width: 100%;
 }
-.logo2{
-  display:none;
+.logo2 {
+  display: none;
   position: absolute;
   z-index: 10;
   width: 170px;
   left: 3%;
   top: -2%;
 }
-.logo2 img{
+.logo2 img {
   width: 100%;
 }
 .containers {
@@ -41,7 +42,6 @@ input , select {
   background-color: #fff;
   height: 100%;
   overflow: hidden;
-
 }
 
 .forms-containers {
@@ -103,15 +103,13 @@ form.sign-in-form {
   padding: 0 0.4rem;
   position: relative;
 }
-.show_pass{
-padding: 5px;
-
+.show_pass {
+  padding: 5px;
 }
-.showpass{
-padding: 5px;
-
+.showpass {
+  padding: 5px;
 }
-.showpass_label{
+.showpass_label {
   margin-left: 15px;
 }
 .input-field i {
@@ -121,23 +119,24 @@ padding: 5px;
   transition: 0.5s;
   font-size: 1.1rem;
 }
-select{
+select {
   cursor: pointer;
   color: #aaa;
   font-weight: 500;
 }
 
-.input-field input , .input-field select {
+.input-field input,
+.input-field select {
   background: none;
   outline: none;
   border: none;
   line-height: 1;
   font-weight: 600;
   font-size: 1.1rem;
-  
 }
 
-.input-field input::placeholder ,select option {
+.input-field input::placeholder,
+select option {
   color: #aaa;
   font-weight: 500;
 }
@@ -174,9 +173,17 @@ select{
 
 .btn {
   width: 150px;
-  background:var(--main-bg-color);  
-	background: -webkit-linear-gradient(to right, var(--secondary-bg-color),var(--main-bg-color));  
-	background: linear-gradient(to right, var(--secondary-bg-color),var(--main-bg-color)); 
+  background: var(--main-bg-color);
+  background: -webkit-linear-gradient(
+    to right,
+    var(--secondary-bg-color),
+    var(--main-bg-color)
+  );
+  background: linear-gradient(
+    to right,
+    var(--secondary-bg-color),
+    var(--main-bg-color)
+  );
   border: none;
   outline: none;
   height: 49px;
@@ -210,13 +217,20 @@ select{
   top: -10%;
   right: 48%;
   transform: translateY(-50%);
-  background:var(--main-bg-color);  
-	background: -webkit-linear-gradient(to right, var(--secondary-bg-color),var(--main-bg-color));  
-	background: linear-gradient(to right, var(--secondary-bg-color),var(--main-bg-color)); 
+  background: var(--main-bg-color);
+  background: -webkit-linear-gradient(
+    to right,
+    var(--secondary-bg-color),
+    var(--main-bg-color)
+  );
+  background: linear-gradient(
+    to right,
+    var(--secondary-bg-color),
+    var(--main-bg-color)
+  );
   transition: 1.8s ease-in-out;
   border-radius: 50%;
   z-index: 6;
-
 }
 
 .image {
@@ -313,6 +327,19 @@ select{
 
 .containers.sign-up-mode .right-panel {
   pointer-events: all;
+}
+
+/* Google Signup */
+
+.google-btn{
+  margin:15px 0;
+  padding:10px;
+  box-shadow: 1px 3px 5px rgba(0,0,0,0.4);
+}
+
+.sign-up-form a:hover,
+.signin-signup a:hover{
+  text-decoration: none;
 }
 
 @media (max-width: 870px) {
@@ -443,64 +470,60 @@ select{
     left: 50%;
   }
 }
-label{
+label {
   display: flex;
   margin: 10px 0px;
   max-width: 380px;
   justify-content: space-between;
 }
-ul i{
+ul i {
   background-color: #5a95fd;
   padding: 5px;
   color: white;
   margin-left: 5px;
   margin-bottom: 0px;
 }
-label ul{
+label ul {
   margin-bottom: 0px !important;
 }
 
-
-
-@media only screen and (max-width:875px)  {
-
-  .logo,.logo2{
+@media only screen and (max-width: 875px) {
+  .logo,
+  .logo2 {
     bottom: 150px;
     left: 6%;
   }
-  .content{
+  .content {
     margin-top: 30px;
   }
-  .sign-up-form{
+  .sign-up-form {
     margin-top: 50px;
     margin-bottom: 50px;
   }
   .input-field {
-  max-width: 380px;
-  width: 100%;
-  background-color: #f0f0f0;
-  margin: 7px 0;
-  height: 40px;
-  border-radius:3px;
-  display: grid;
-  grid-template-columns: 15% 85%;
-  padding: 0 0.4rem;
-  position: relative;
-}
+    max-width: 380px;
+    width: 100%;
+    background-color: #f0f0f0;
+    margin: 7px 0;
+    height: 40px;
+    border-radius: 3px;
+    display: grid;
+    grid-template-columns: 15% 85%;
+    padding: 0 0.4rem;
+    position: relative;
+  }
 
-.input-field i {
-  text-align: center;
-  line-height: 40px;
-  color: #acacac;
-  transition: 0.5s;
-  font-size: 1.1rem;
+  .input-field i {
+    text-align: center;
+    line-height: 40px;
+    color: #acacac;
+    transition: 0.5s;
+    font-size: 1.1rem;
+  }
+  .btn {
+    margin: 0px !important;
+  }
 }
-.btn{
-  margin: 0px !important;
-}
-
-}
-
 
 /* Rounded border */
 hr.rounded {

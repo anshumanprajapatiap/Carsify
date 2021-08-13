@@ -85,9 +85,13 @@
                 <div class="col-2">
                   <div class="myicons">
                   <ul>
-                    <li><a href="{% url 'CarsifyApp:Edit_Vehicle_Details' i.id %}"><i title="edit" class="fa fa-pencil"></i></a></li>
-                    <li><a href="{% url 'CarsifyApp:Disable_My_Vehicle' i.id %}"><i title="disable" class="fa fa-ban"></i></a></li>
-                    <li><a href="{% url 'CarsifyApp:Delete_My_Car' i.id %}"><i title="delte" class="fa fa-trash"></i></a></li>
+                    <li><a href="{% url 'CarsifyApp:Edit_Vehicle_Details' i.id %}"><i title="Edit" class="fa fa-pencil"></i></a></li>
+                    {% if i.Car_Status %}
+                    <li><a href="{% url 'CarsifyApp:Enable_My_Vehicle' i.id %}"><i title="Enable" class="fa fa-check-circle"></i></a></li>
+                    {% else %}
+                    <li><a href="{% url 'CarsifyApp:Disable_My_Vehicle' i.id %}"><i title="Disable" class="fa fa-ban"></i></a></li>
+                    {% endif %}
+                    <li><a href="{% url 'CarsifyApp:Delete_My_Car' i.id %}"><i title="Delete" class="fa fa-trash"></i></a></li>
                   </ul>
                 </div>
                 </div>

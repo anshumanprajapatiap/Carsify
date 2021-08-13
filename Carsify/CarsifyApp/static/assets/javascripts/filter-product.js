@@ -30,7 +30,6 @@ $(document).ready(function(){
             _filterObj.minKm=_minKm;
             _filterObj.maxKm=_maxKm;
 
-
             $(".filter-checkbox").each(function(index,ele){
                 var _filterVal=$(this).val();
                 var _filterKey=$(this).data('filter');

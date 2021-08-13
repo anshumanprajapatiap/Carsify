@@ -7,8 +7,12 @@ from django.core.mail import send_mail, EmailMultiAlternatives
 from django.contrib.auth import login, logout, authenticate
 from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
-from django.db.models import Min,Max
+from django.db.models import Min,Max,Q
 import datetime
+# import CarsifyApp.image_processing
+# views.py file
+
+from django.contrib.auth.hashers import check_password
 # Create your views here.
 def Index(request):
     News = False
@@ -128,6 +132,7 @@ def Signup(request):
                 Address.objects.create(user=user, Address_Typee=i)
 
         return redirect('CarsifyApp:LoginSignup')
+    return render(request,'login.html')
 
 
 def Logout(request):
@@ -149,14 +154,29 @@ def Dashboard(request):
     minmaxPrice = Individual_Car_Details.objects.aggregate(Min('Price'), Max('Price'))
     minmaxYear = Individual_Car_Details.objects.aggregate(Min('Date_of_Manufacturing'), Max('Date_of_Manufacturing'))
     minmaxKm = Individual_Car_Details.objects.aggregate(Min('KM'), Max('KM'))
+    states = India_States.objects.all()
+    Companies = Car_Company.objects.values()
+    fav_ids = []
+    
+    for i in UserFavouriteCars.objects.filter(user=request.user).values():
+        fav_ids.append(i.get('carid_id'))
 
-    if request.GET:
-        q = request.GET['q']
-        car_data = Individual_Car_Details.objects.filter(Company__icotanins=q).order_by('-id')
+    if request.GET: 
+        if 'q' in request.GET:
+            q = request.GET['q']
+            ids=[]
+            companyData = Companies.filter(Car_Company_Name__icontains =q)
+            for data in companyData:
+                ids.append(data.get('id'))  
+            car_data = Individual_Car_Details.objects.filter(Company_id__in=ids).order_by('-id')
+            if(q.strip()==""):
+                print("A")
+                car_data = Individual_Car_Details.objects.filter(Car_Status=False)
+            
 
     dic = {'car_data': car_data, 'car_company_data': car_company_data, \
            'fuels':fuels,'transmission_type':transmission_type,'owners':owners, \
-           'car_body_types':Body_Types, 'Minmaxprice':minmaxPrice, 'minmaxYear': minmaxYear, 'minmaxKm': minmaxKm}
+           'car_body_types':Body_Types, 'Minmaxprice':minmaxPrice, 'minmaxYear': minmaxYear, 'minmaxKm': minmaxKm, 'states':states,'fav_id':fav_ids}
 
     return render(request, 'dashboard.html', dic)
 
@@ -170,17 +190,16 @@ def filter_data(request):
     transmission_type = request.GET.getlist('transmission[]')
     owners = request.GET.getlist('owner[]')
     car_body_type = request.GET.getlist('car_body_type[]')
+    state = request.GET.getlist('state[]')
     minPrice = request.GET['minPrice']
     maxPrice = request.GET['maxPrice']
     minYear = request.GET['minYear']
     maxYear = request.GET['maxYear']
     minKm = request.GET['minKm']
     maxKm = request.GET['maxKm']
-
     car_data = Individual_Car_Details.objects.filter(Car_Status=False)
-
     #sort
-    sort = request.GET['orderby']
+    sort = request.GET['orderby']    
 
     if sort=="price+":
         car_data = car_data.order_by('-Price')
@@ -194,8 +213,7 @@ def filter_data(request):
     elif sort == "year-":
         car_data = car_data.order_by('Date_of_Manufacturing')
 
-
-    #price
+    #price  
     car_data = car_data.filter(Price__gte=minPrice)
     car_data = car_data.filter(Price__lte=maxPrice)
 
@@ -248,7 +266,6 @@ def Addcar(request):
 
 
     if request.method == "POST":
-        print(request.POST)
         x = request.POST
         companyname = x['companyname']
         companyobj = Car_Company.objects.get(id=companyname)
@@ -321,6 +338,7 @@ def Profile(request):
     except:
         useralldata = None
 
+
     if useralldata:
         if request.method == "POST":
             img = request.FILES["image"]
@@ -334,58 +352,110 @@ def Profile(request):
         type = Address_Type.objects.all()
         for i in type:
             Address.objects.create(user=user, Address_Typee=i)
+    Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
+    address = Address.objects.filter(user=request.user)[0]
 
-    address = Address.objects.filter(user=request.user)
-
-    dic = {'useralldata':useralldata, 'useraddress': address}
+    dic = {'useralldata':useralldata, 'useraddress': address,'Aadhar':Aadhar}
     return render(request, 'profile.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Editprofile(request):
-
 
     try:
         useralldata = UserProfile.objects.get(user=request.user)
     except:
         useralldata = None
 
-    if useralldata==None:
+    if not useralldata:
         user = request.user
         UserProfile.objects.create(user=user)
         type = Address_Type.objects.all()
         for i in type:
             Address.objects.create(user=user, Address_Typee=i)
-    else:
-        if request.method == 'POST':
-            x = request.POST
-            print(x)
-            addhar = x['addhar']
-            pan = x['pan']
-            voterid = x['voterid']
-            phone = x['phone']
-            #UserProfile.objects.get(user=request.user).update(ContactNo=phone)
 
-            useralldata.ContactNo = phone
-            useralldata.AddharNumber = addhar
-            useralldata.PanNumber = pan
-            useralldata.VoterID = voterid
+    has_password = False
+    if request.user.has_usable_password:
+        has_password:True
+
+    types = Address_Type.objects.all()
+    address = Address.objects.filter(user=request.user)[0]
+    Aadhar = "XXXX XXXX XXXX"
+    if useralldata.AddharNumber is not None:
+        Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
+
+    if request.method == 'POST':
+        if 'profilePicBtn' in request.POST:
+            img = request.FILES["image"]
+            useralldata.ProfileImg = img
             useralldata.save()
-
+        if 'profileBtn' in request.POST:
+            x = request.POST
+            useralldata.AddharNumber = int(x.get('aadhar').replace(" ",""))
+            useralldata.PanNumber = x.get('panNumber')
+            useralldata.VoterID = x.get('voterId')
+            useralldata.ContactNo = x.get('contactNo')
+            useralldata.Email = x.get('EmailAddress')
+            NewAddress = x.get("Address").split(",")
+            x = NewAddress[0].split(":-")[0].capitalize()
+            print(NewAddress)
+            if( x=="Home"):
+                address.Address_Typee= types[0]
+            elif(x=="Work"):
+                address.Address_Typee = types[1]
+            else:
+                address.Address_Typee= types[0]
+            address.apartment_address = NewAddress[0].split(":-")[1]
+            address.street_address = NewAddress[1]
+            address.City = NewAddress[2]
+            address.State = NewAddress[3]
+            address.country = NewAddress[4]
+            address.zip = NewAddress[5]
+            address.save()
+            useralldata.save()
             return redirect('CarsifyApp:Profile')
 
-    address = Address.objects.filter(user=request.user)
-    dic = {'useralldata':useralldata, 'useraddress': address}
+        elif 'changePass' in request.POST:
+            x=request.POST
+            password = request.user.password
+            currPass = x.get('currPass')
+            newPass = x.get('newPass')
+            rePass = x.get('rePass')
+            print(currPass)
+            print(newPass)
+            print(rePass)
+            if not(has_password):
+                if(newPass==currPass):
+                    request.user.set_password(newPass)
+                    request.user.save()
+                    return redirect('CarsifyApp:Profile')
+                else:
+                    return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"New Password and Re-entered Password does not match!",'Password':not(has_password),"Aadhar":Aadhar})
 
-    return render(request, 'editprofile.html', dic)
+            matchcheck = check_password(currPass,password)
+            if matchcheck:
+                if not(newPass == currPass):
+                    if newPass==rePass:
+                        request.user.set_password(newPass)
+                        request.user.save()
+                        return redirect('CarsifyApp:Profile')
+                    else:
+                        return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"New Password and Re-entered Password does not match!",'Password':not(has_password),"Aadhar":Aadhar})
+                elif newPass==currPass:
+                    print("Same")
+                    return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"New Password cannot be Old Password!",'Password':not(has_password),"Aadhar":Aadhar})
+            else:      
+                return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"Current Password Does not match",'Password':not(has_password),"Aadhar":Aadhar})
+
+    dic = {'useralldata':useralldata, 'useraddress': address,'alert_flag':False,'Password':not(has_password),"Aadhar":Aadhar}
+
+    return render(request, 'editprofile.html',dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Favourites(request):
     data = UserFavouriteCars.objects.filter(user=request.user)
-
+    
     dic = {'f_Car':data}
     return render(request, 'favourites.html', dic)
-
-
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def MYvehicle(request):
@@ -396,7 +466,35 @@ def MYvehicle(request):
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Edit_Vehicle_Details(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
-    dic={'data':data}
+    Companies = Car_Company.objects.all()
+    car_model = []
+    states = India_States.objects.all()
+    owners = Number_of_Owners.objects.all() 
+    fav_ids = []
+    fav = False
+    for i in UserFavouriteCars.objects.filter(user=request.user).values():
+        fav_ids.append(i.get('carid_id'))
+    if cid in fav_ids:
+        fav=True
+    
+    if request.POST:
+        x = request.POST
+        data.Company = Car_Company.objects.get(Car_Company_Name=x.get('companyname'))
+        # data.Model = x.get('model')
+        data.Registration_State = India_States.objects.get(id=x.get('registrationState'))
+        data.City = x.get('City')
+        data.Owners = Number_of_Owners.objects.get(id=x.get('owner'))
+        data.Discription = x.get('description').lstrip(" ")
+        data.Price = x.get('Price')
+        data.Card_Registration_Number = x.get('RegistrationNumber')
+        data.save()
+        #  Fuel_Type =FuelType, Transmission=Transmission,
+        #     Body_Type=VehicalType, Date_of_Manufacturing = DManufacturing,
+        #     Car_Varient=Varient, KM=Km, Color=color, Insurance=Insurance, Insurance_Type=InsuranceType, \
+        # Showimage=showimage
+
+
+    dic={'data':data,'fav':fav,'states':states,'companies':Companies,'car_model':car_model,'owners':owners}
     return render(request, 'editmyvehicle.html', dic)
 
 #edit individual and update function
@@ -409,9 +507,19 @@ def Edit_Update(request, cid):
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Disable_My_Vehicle(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
-    
-    Individual_Car_Details.objects.update(id = data, Car_Status=True)
+    # Individual_Car_Details.objects.update(id = cid, Car_Status=True)
+    data.Car_Status = True
+    data.save()
     return redirect('CarsifyApp:MYvehicle')
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Enable_My_Vehicle(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    # Individual_Car_Details.objects.update(id = cid, Car_Status=True)
+    data.Car_Status = False
+    data.save()
+    return redirect('CarsifyApp:MYvehicle')
+
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Delete_My_Car(request, cid):
@@ -424,29 +532,27 @@ def Viewdetails(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     images = Individual_Car_Images.objects.filter(carid=data)
     cdata = UserFavouriteCars.objects.filter(carid=data)
-    
-    
+    userdata =  UserProfile.objects.get(user = data.user)
     a_list = len(images)
     noimages = list(range(1, a_list+1))
-
-    print(cdata)
         
-    dic ={'data':data, 'images':images, 'noimages':noimages, 'cdata':cdata}
+    dic ={'data':data, 'images':images, 'noimages':noimages, 'cdata':cdata, 'udata':userdata}
     return render(request, 'viewdetails.html', dic)
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Delete_From_Favourite(request,cid):
-    data = UserFavouriteCars.objects.get(id=cid)
-    
+
+    data = UserFavouriteCars.objects.get(user=request.user,carid=cid)
     data.delete()
-    return redirect('CarsifyApp:Favourites')
+
+    return redirect(request.META.get('HTTP_REFERER'))
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Add_to_Favourite(request, cid):
     all = False
     data = Individual_Car_Details.objects.get(id=cid)
     try:
-        there = UserFavouriteCars.objects.get(carid=data)
+        there = UserFavouriteCars.objects.get(user=request.user,carid=data)
     except:
         there=None
 
@@ -455,4 +561,4 @@ def Add_to_Favourite(request, cid):
     else:
         UserFavouriteCars.objects.create(user=request.user, carid=data)
 
-    return redirect('CarsifyApp:Dashboard')
+    return redirect(request.META.get('HTTP_REFERER'))
