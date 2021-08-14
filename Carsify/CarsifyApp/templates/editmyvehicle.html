@@ -213,17 +213,23 @@
                 <i class="fas fa-car"></i>
                 <select name="companyname" class="w-75" required>
                 </h5>
+                
                   {% for company in companies %} 
+                 
                   {% if data.Company == company %}
+                  
                   <option value="{{company}}" selected>
                     {{company}}
                   </option>
+                 
                   {% else %}
                   <option value="{{company}}">
                     {{company}}
                   </option>
                   {% endif %} {% endfor %}
+        
                 </select>
+                
               
               <h5><i class="fa fa-plus"></i>{{data.Model}}</h5>
               <!-- <select name="model"  required>
@@ -301,6 +307,7 @@
             <button type="submit" class="p-2 my-5 btn-primary">Update</button>
           </div>  
           <div>
+          <!--
             <h3>Contact the Dealer</h3>
             <div class="contact-icons">
               <p>
@@ -312,6 +319,7 @@
                 <i class="fas fa-envelope-open-text"></i>{{data.user.email}}
               </p>
             </div>
+          -->
           </div>
         </div>
       </form>

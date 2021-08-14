@@ -17,7 +17,7 @@
 <body>
 
 
-  <!-------------------------------navigation------------------------------------------------->
+  <!-- -navigation -->
       <nav>
         <div class="menuicon">
             <span class="fas fa-bars"></span>
@@ -80,7 +80,18 @@
                   </div>
                 </div>
                 <div class="col-6 mycontent">
-                    {{ i.Discription }}
+
+                    Company: {{ i.Company }} - {{ i.Model.Car_Model_Name }}
+                    <br>
+                    Registration No. : {{ i.Card_Registration_Number }}<br>
+                    Price : {{ i.Price }}<br>
+                    Car Driven : {{ i.KM }} KMs
+                    {% comment %} Car is {% if i.Car_Status==False %}
+                              not ready to sale.
+                             {% else %}
+                               ready to sale.
+                             {% endif %}<br> {% endcomment %}
+                   
                 </div>
                 <div class="col-2">
                   <div class="myicons">
@@ -91,7 +102,10 @@
                     {% else %}
                     <li><a href="{% url 'CarsifyApp:Disable_My_Vehicle' i.id %}"><i title="Disable" class="fa fa-ban"></i></a></li>
                     {% endif %}
+                    <!-- Delete car -->
+                    <!--
                     <li><a href="{% url 'CarsifyApp:Delete_My_Car' i.id %}"><i title="Delete" class="fa fa-trash"></i></a></li>
+                     -->
                   </ul>
                 </div>
                 </div>

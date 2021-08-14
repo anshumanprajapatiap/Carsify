@@ -15,10 +15,10 @@
                             </div>
                             <div class="row py-2">
                                 <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ car.Model.Car_Model_Name}}</div>
-                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> 2</p></div>
+                                <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i>{{ car.Owners.Owners }}</p></div>
                             </div>
                             <div class="row py-2">
-                                <div class="col-6 car-modal">{{ car.Registration_State }}</div>
+                                <div class="col-6 car-modal">{{ car.City }}</div>
                                 <div class="col-6"><p class="float-right car-number">{{ car.Card_Registration_Number }}</p></div>
                             </div>
                             <h5>Rs. {{ car.Price }}</h5>
