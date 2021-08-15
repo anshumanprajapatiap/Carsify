@@ -366,7 +366,15 @@ def Editprofile(request):
     except:
         useralldata = None
 
-    if not useralldata:
+    if useralldata:
+        print("hello")
+    else:
+        user = request.user
+        UserProfile.objects.create(user=user)
+        type = Address_Type.objects.all()
+        for i in type:
+            Address.objects.create(user=user, Address_Typee=i)
+    
         user = request.user
         UserProfile.objects.create(user=user)
         type = Address_Type.objects.all()
