@@ -147,7 +147,7 @@
               {% endfor %}
             </ol>
 
-            <div class="carousel-inner">
+            <div class="carousel-inner" style="height: 65vh">
               <div class="carousel-item active">
                 <img class="d-block w-100" src="{{ data.Showimage.url }}" />
               </div>
@@ -188,21 +188,21 @@
           <div class="py-3 model">
             <h3>Features</h3>
             <h3>
-              <a href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}"
-                ><i class="fa fa-heart"></i
-              ></a>
+              <a href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}">
+              <i class="fa fa-heart"></i></a>
             </h3>
+
           </div>
           <div class="py-3 model">
             <h5><i class="fas fa-car"></i>{{data.Company}}</h5>
-            <h5><i class="fa fa-plus"></i>{{data.Model}}</h5>
+            <h5><i class="fa fa-plus"></i>{{data.Model.Car_Model_Name}}</h5>
           </div>
           <div class="py-3 model">
             <h5>
               <i class="fas fa-calendar-check"></i
               >{{data.Date_of_Manufacturing.year}}
             </h5>
-            <h5><i class="fa fa-user"></i>2</h5>
+            <h5><i class="fa fa-user"></i>{{data.Owners.Owners}} {{data.Owners}}</h5>
           </div>
           <div class="py-3 model">
             <h5><i class="fa fa-map"></i>{{data.Card_Registration_Number}}</h5>
@@ -215,7 +215,9 @@
           <div class="py-3 model">
             <h5><i class="fa fa-download"></i>Save Images</h5>
               <ul list-style="none" class="d-block">
-                {% for image in images %}
+
+                <!--
+                  {% for image in images %}
                 <li>
                   <a href="{{image.Image.url}}" id="downloadLink" download
                     >{{image.Image.name}}</a
@@ -223,6 +225,8 @@
                 </li>
                 {% endfor %}
               </ul>
+              -->
+
           </div>
           <div class="py-3 model">
             <h4><i class="fas fa-rupee-sign mr-2"></i>{{data.Price}}</h4>
@@ -233,7 +237,7 @@
       <div class="description">
         
         <h3>Know more about my vehicle</h3>
-        <br />
+        <br/>
         <p>
           {{data.Discription}}
         </p>
@@ -257,12 +261,14 @@
       const cancelBtn = document.querySelector(".cancelicon");
       const items = document.querySelector(".navitems");
       const form = document.querySelector("form");
+
       menuBtn.onclick = () => {
         items.classList.add("active");
         menuBtn.classList.add("hide");
         searchBtn.classList.add("hide");
         cancelBtn.classList.add("show");
       };
+
       cancelBtn.onclick = () => {
         items.classList.remove("active");
         menuBtn.classList.remove("hide");
@@ -271,6 +277,7 @@
         form.classList.remove("active");
         cancelBtn.style.color = "#ff3d00";
       };
+
       searchBtn.onclick = () => {
         form.classList.add("active");
         searchBtn.classList.add("hide");

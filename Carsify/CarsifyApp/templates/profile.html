@@ -15,7 +15,7 @@
     <title>Profile</title>
   </head>
   <body>
-    <!-------------------------------navigation------------------------------------------------->
+    <!---navigation-->
       <nav>
         <div class="menuicon">
             <span class="fas fa-bars"></span>
@@ -69,7 +69,7 @@
               {% if  useralldata.ProfileImg %}
               <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
               {% else %}
-              <img id = "outImage" src="#">
+              <img id = "outImage" src="{% static 'assets/images/user_init.jpg' %}">
               {% endif %}
             </div>
             <div class="col-lg-9 pt-3">
@@ -78,7 +78,9 @@
                   <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
                   <br/>
                   <p class='mb-2'>Username : {{request.user.username}}</p>
+                  <!--
                   <p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </p>
+                  -->
                 </div>
                 <h5><a href="{% url 'CarsifyApp:Editprofile' %}"><i class="fa fa-pencil"></i>Edit</a></h5>
               </div>
@@ -125,21 +127,27 @@
                 <h6><i class="fa fa-phone"></i>Email Address</h6>
               </div>
               <div class="col-lg-7">
-                <p>{{useralldata.Email}}</p>
+                <p>{{useralldata.user.email}}</p>
               </div>
             </div>
+            {% for add in useraddress%}
             <div class="row">
+      
+            
               <div class="col-lg-5">
-                <h6><i class="fa fa-map-marker"></i>Address</h6>
+                <h6><i class="fa fa-map-marker"></i>{{add.Address_Typee}} Address</h6>
               </div>
               <div class="col-lg-7">
-                <p><b>{{useraddress.Address_Typee}}:-</b> {{useraddress.apartment_address}}, {{useraddress.street_address}},
-                    {{useraddress.City}},
-                   {{useraddress.State}},
-                   {{useraddress.country}},
-                    {{useraddress.zip}}</p>
+                <p>{{add.apartment_address}}, {{add.street_address}},
+                    {{add.City}},
+                   {{add.State}},
+                   {{add.country}},
+                    {{add.zip}}</p>
               </div>
+
+            
             </div>
+            {% endfor %}
             
           </div>
         </div>

@@ -15,7 +15,7 @@
     <title>Edit Profile</title>
   </head>
   <body>
-    <!-------------------------------navigation------------------------------------------------->
+    <!---navigation-->
       <nav>
         <div class="menuicon">
             <span class="fas fa-bars"></span>
@@ -69,17 +69,19 @@
                 {% if  useralldata.ProfileImg %}
               <img id = "outImage" src="{{ useralldata.ProfileImg.url }}">
               {% else %}
-              <img id = "outImage" src="{% static 'assets/images/team1.jpg' %}">
+              <img id = "outImage" src="{% static 'assets/images/user_init.jpg' %}">
               {% endif %}
             </div>
             <div class="col-lg-9 pt-3">
               <div class="d-flex justify-content-between py-2">
                 <div class="d-md-flex d-sm-block">
                   <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
-                  <p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </input>
+                  <!--<p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </input>
+                  -->
                 </div>
-                <button name="profileBtn" type="submit" form="profileForm"><h5><i class="fa fa-check"></i>Update</h5></button>
+                <button class="upass" name="profileBtn" type="submit" form="profileForm"><h5><i class="fa fa-check"></i>Update</h5></button>
               </div>
+              <!--
             <a id="new_profile"><i class="fa fa-plus"></i>New Photo</a>
               <form method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
@@ -87,6 +89,7 @@
                 <BR>
                 <button class="btn" type="submit" name="profilePicBtn">Save</button>
             </form>
+            -->
             </div>
         </div>
         <form id="profileForm" action="{% url 'CarsifyApp:Editprofile' %}" method="POST">
@@ -98,7 +101,7 @@
               <hr>
             </div>
             <h5>AADHAR NUMBER</h5>
-            <input type="text" value="{{Aadhar}}" pattern="^[2-9]{1}[0-9]{3}\s{1}[0-9]{4}\s{1}[0-9]{4}$" placeholder="XXXX XXXX XXXX" name="aadhar"></input>
+            <input type="text" value="{{useralldata.Aadhar}}" pattern="^[2-9]{1}[0-9]{3}\s{1}[0-9]{4}\s{1}[0-9]{4}$" placeholder="XXXX XXXX XXXX" name="aadhar"></input>
             <h5>PAN NUMBER</h5>
             <input type="text" value={{useralldata.PanNumber}} pattern="[A-Z]{5}[0-9]{4}[A-Z]{1}" placeholder="XXXXX0000X" name="panNumber"></input>
             <h5>VOTER ID</h5>
@@ -118,6 +121,7 @@
                 <input type="text" value={{useralldata.ContactNo}} pattern="^[6-9]{1}[0-9]{9}" placeholder="1234567899" name="contactNo"></input>
               </div>
             </div>
+            <!--
             <div class="row">
               <div class="col-lg-5">
                 <h6><i class="fa fa-phone"></i>Email Address</h6>
@@ -126,20 +130,25 @@
                 <input type="email" value={{useralldata.Email}} placeholder="name@host.com" name="EmailAddress"></input>
               </div>
             </div>
+            -->
+            
             <div class="row">
+            {% for add in useraddress%}
               <div class="col-lg-5">
-                <h6><i class="fa fa-map-marker"></i>Address</h6>
+                <h6><i class="fa fa-map-marker"></i>{{add.Address_Typee}} Address</h6>
                 <br/>
               </div>
               <div class="col-lg-7">
-                <textarea type="text" name="Address" pattern="^[a-zA-Z]{4}+:-[a-zA-Z0-9],[a-zA-Z0-9],[a-zA-Z],[a-zA-Z],[0-9]{6}" placeholder="Address_Type( Home/Work ) :- Apartment_address, Street_address, City, State, Country, Zip_Code">{{useraddress.Address_Typee}}:-{{useraddress.apartment_address}},{{useraddress.street_address}},{{useraddress.City}},{{useraddress.State}},{{useraddress.country}},{{useraddress.zip}}</textarea>
+                <textarea type="text" name="{{add.Address_Typee}}" pattern="^[a-zA-Z]{4}+:-[a-zA-Z0-9],[a-zA-Z0-9],[a-zA-Z],[a-zA-Z],[0-9]{6}" placeholder="Apartment_address, Street_address, City, State, Country, Zip_Code">{{add.apartment_address}},{{add.street_address}},{{add.City}},{{add.State}},{{add.country}},{{add.zip}}</textarea>
               </div>
+            {% endfor %}
               <p class="text-muted">Enter address in format: <br/>
                 Address_Type( Home/Work ) :- Apartment_address, Street_address, City, State, Country, Zip_Code
               </p>
             </div>
           </div>
         </div>
+      
       </form>
       <form id="changePassword" action="{% url 'CarsifyApp:Editprofile' %}" method="POST">
         {% csrf_token %}
@@ -188,6 +197,7 @@
          
         </div>
       </form>
+
     </div>
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->

@@ -52,7 +52,7 @@ class UserProfile(models.Model):
     Email = models.EmailField(null=True)
     Address = models.ForeignKey(Address,on_delete=models.CASCADE,null=True)
     #Documents
-    AddharNumber = models.IntegerField(null=True)
+    AddharNumber = models.IntegerField(null=True, default=0000000000000000)
     PanNumber = models.TextField(null=True)
     VoterID = models.TextField(null=True)
 

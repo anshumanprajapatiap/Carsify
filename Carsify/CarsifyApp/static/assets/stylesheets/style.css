@@ -88,6 +88,18 @@ a{
     border: 0px !important;
 }
 
+.DownloadBtn{
+    /* box-shadow: 0 12px 30px rgb(85 107 231/ 73%); */
+    border-radius: 3px;
+    background: var(--main-bg-color);  
+	background: -webkit-linear-gradient(to right, var(--secondary-bg-color), var(--main-bg-color));  
+	background: linear-gradient(to right, var(--secondary-bg-color), var(--main-bg-color)); 
+    color: white;
+    padding: 10px 25px;
+    outline: none;
+    border: 0px !important;
+}
+
 
 
 /*=============================================service naya wala======================================================*/

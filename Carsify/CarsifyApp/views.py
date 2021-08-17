@@ -350,10 +350,17 @@ def Profile(request):
         user = request.user
         UserProfile.objects.create(user=user)
         type = Address_Type.objects.all()
+        
+
         for i in type:
             Address.objects.create(user=user, Address_Typee=i)
-    Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
-    address = Address.objects.filter(user=request.user)[0]
+
+    if useralldata==None:
+        Aadhar = 'None'
+    else:
+        Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
+    
+    address = Address.objects.filter(user=request.user)
 
     dic = {'useralldata':useralldata, 'useraddress': address,'Aadhar':Aadhar}
     return render(request, 'profile.html', dic)
@@ -386,16 +393,19 @@ def Editprofile(request):
         has_password:True
 
     types = Address_Type.objects.all()
-    address = Address.objects.filter(user=request.user)[0]
-    Aadhar = "XXXX XXXX XXXX"
-    if useralldata.AddharNumber is not None:
+    address = Address.objects.filter(user=request.user)
+    
+    try:
         Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
+    except:
+        Aadhar = "XXXX XXXX XXXX"
 
     if request.method == 'POST':
         if 'profilePicBtn' in request.POST:
             img = request.FILES["image"]
             useralldata.ProfileImg = img
             useralldata.save()
+
         if 'profileBtn' in request.POST:
             x = request.POST
             useralldata.AddharNumber = int(x.get('aadhar').replace(" ",""))
@@ -403,22 +413,41 @@ def Editprofile(request):
             useralldata.VoterID = x.get('voterId')
             useralldata.ContactNo = x.get('contactNo')
             useralldata.Email = x.get('EmailAddress')
-            NewAddress = x.get("Address").split(",")
-            x = NewAddress[0].split(":-")[0].capitalize()
-            print(NewAddress)
+            NewAddress = x.get("Home").split(",")
+            WorkAddress = x.get("Work").split(",")
+
+            #x = NewAddress[0].split(":-")[0].capitalize()
+            print("Home", NewAddress)
+            print("Work", WorkAddress)
+
+            '''
             if( x=="Home"):
                 address.Address_Typee= types[0]
             elif(x=="Work"):
                 address.Address_Typee = types[1]
             else:
                 address.Address_Typee= types[0]
-            address.apartment_address = NewAddress[0].split(":-")[1]
-            address.street_address = NewAddress[1]
-            address.City = NewAddress[2]
-            address.State = NewAddress[3]
-            address.country = NewAddress[4]
-            address.zip = NewAddress[5]
-            address.save()
+            '''
+            print(address[0].Address_Typee)
+            address[0].Address_Typee= types[0]  
+            address[0].apartment_address = NewAddress[0]
+            address[0].street_address = NewAddress[1]
+            address[0].City = NewAddress[2]
+            address[0].State = NewAddress[3]
+            address[0].country = NewAddress[4]
+            address[0].zip = NewAddress[5]
+            address[0].save()
+            
+
+            address[1].Address_Typee= types[1]
+            address[1].apartment_address = WorkAddress[0]
+            address[1].street_address = WorkAddress[1]
+            address[1].City = WorkAddress[2]
+            address[1].State = WorkAddress[3]
+            address[1].country = WorkAddress[4]
+            address[1].zip = WorkAddress[5]
+            address[1].save()
+
             useralldata.save()
             return redirect('CarsifyApp:Profile')
 
@@ -452,7 +481,12 @@ def Editprofile(request):
                     print("Same")
                     return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"New Password cannot be Old Password!",'Password':not(has_password),"Aadhar":Aadhar})
             else:      
+        
                 return render(request, 'editprofile.html',{'useralldata':useralldata, 'useraddress': address, 'alert_flag':True,'msg':"Current Password Does not match",'Password':not(has_password),"Aadhar":Aadhar})
+        try:
+            Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
+        except:
+            Aadhar = "XXXX XXXX XXXX"
 
     dic = {'useralldata':useralldata, 'useraddress': address,'alert_flag':False,'Password':not(has_password),"Aadhar":Aadhar}
 
