@@ -408,7 +408,12 @@ def Editprofile(request):
 
         if 'profileBtn' in request.POST:
             x = request.POST
-            useralldata.AddharNumber = int(x.get('aadhar').replace(" ",""))
+            addharno = x.get('aadhar')
+            if addharno=="":
+                useralldata.AddharNumber = 0
+            else:
+                useralldata.AddharNumber = int(x.get('aadhar').replace(" ",""))
+
             useralldata.PanNumber = x.get('panNumber')
             useralldata.VoterID = x.get('voterId')
             useralldata.ContactNo = x.get('contactNo')
