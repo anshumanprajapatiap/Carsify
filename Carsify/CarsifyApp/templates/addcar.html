@@ -15,7 +15,7 @@
     <title>Add Car</title>
   </head>
   <body>
-    <!-------------------------------navigation------------------------------------------------->
+    <!--- navigation -->
       <nav>
         <div class="menuicon">
             <span class="fas fa-bars"></span>
@@ -81,11 +81,11 @@
       <form action="#" method="post" class="steps" accept-charset="UTF-8" enctype="multipart/form-data" novalidate="">
         {% csrf_token %}
         <ul id="progressbar">
-          <li class="active">User Information</li>
-          <li>Aquisition</li>
-          <li>Cultivation</li>
-          <li>Cultivation2</li>
-          <li>Retention</li>
+          <li class="active">Step-1</li>
+          <li>Step-2</li>
+          <li>Step-3</li>
+          <li>Step-4</li>
+          <li>Step-5</li>
         </ul>
       
       
@@ -93,7 +93,7 @@
         <!-- USER INFORMATION FIELD SET --> 
         <fieldset>
           <h2 class="fs-title">Basic Information</h2>
-          <h3 class="fs-subtitle">We just need some basic information to begin your deals</h3>
+          <h3 class="fs-subtitle">Fill basic car details to proceed further.</h3>
           <!-- Begin What's Your First Name Field -->
               <div class="hs_companyname field hs-form-field">
               
@@ -180,8 +180,8 @@
       
         <!-- ACQUISITION FIELD SET -->  
         <fieldset>
-          <h2 class="fs-title">Acquisition of Donors</h2>
-          <h3 class="fs-subtitle">How have you been doing in acquiring donors?</h3>
+          <h2 class="fs-title">Registration of your car</h2>
+          <h3 class="fs-subtitle">Please fill details to proceed further.</h3>
             <!-- Begin What's Your First Name Field -->
             <div class="hs_RegisteredState field hs-form-field">
               
@@ -254,8 +254,8 @@
       
         <!-- Cultivation FIELD SET -->  
         <fieldset>
-          <h2 class="fs-title">Cultivation and Nurturing your Donors</h2>
-          <h3 class="fs-subtitle">How have you been nurturing donors to get better donations?</h3>
+          <h2 class="fs-title">Type of Vehicle</h2>
+          <h3 class="fs-subtitle">Please fill details to proceed further.</h3>
 
           <!-- Begin What's Your First Name Field -->
           <div class="hs_VehicalType field hs-form-field">
@@ -333,8 +333,8 @@
       
         <!-- Cultivation2 FIELD SET --> 
         <fieldset>
-          <h2 class="fs-title">Total Cultivation in Donation</h2>
-          <h3 class="fs-subtitle">Let's talk about your donations as a whole</h3>
+          <h2 class="fs-title">Upload images</h2>
+          <h3 class="fs-subtitle">Please upload better quality images.</h3>
                     <!-- Begin What's Your First Name Field -->
               <div class="hs_FuelType field hs-form-field">
               
@@ -389,8 +389,8 @@
       
         <!-- RETENTION FIELD SET 5 -->  
         <fieldset>
-          <h2 class="fs-title">Retention of your donors</h2>
-          <h3 class="fs-subtitle">How long can you keep your donors and their donations?</h3>
+          <h2 class="fs-title">Insurance Status</h2>
+          <h3 class="fs-subtitle">Please add extra details in comment, if any.</h3>
                <!-- Begin What's Your First Name Field -->
               <div class="hs_Insurance field hs-form-field">
                             
@@ -445,7 +445,7 @@
 
         <fieldset id="finalsubmit">
           <h2 class="fs-title">It's on the way!</h2>
-          <h3 class="fs-subtitle">Thank you for trying out our marketing grader, please go check your email for your fundraising report card and some helpful tips to improve it!</h3>
+          <h3 class="fs-subtitle">Thanks you for uploading! Your car has been uploaded on our Carsify dashboard.</h3>
           <div class="explanation btn btn-small modal-trigger" data-modal-id="modal-3">What Is This?</div>
         </fieldset>
 
