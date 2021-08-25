@@ -76,11 +76,14 @@
               <div class="d-flex justify-content-between py-2">
                 <div class="d-md-flex d-sm-block">
                   <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
+                
                   <!--<p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </input>
                   -->
                 </div>
+                 
                 <button class="upass" name="profileBtn" type="submit" form="profileForm"><h5><i class="fa fa-check"></i>Update</h5></button>
               </div>
+             <p>Email: {{ request.user.email }} </p>
               <!--
             <a id="new_profile"><i class="fa fa-plus"></i>New Photo</a>
               <form method="post" action="" enctype="multipart/form-data">
