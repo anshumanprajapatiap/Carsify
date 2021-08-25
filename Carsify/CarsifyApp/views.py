@@ -582,7 +582,7 @@ def Viewdetails(request, cid):
     userdata =  UserProfile.objects.get(user = data.user)
     a_list = len(images)
     noimages = list(range(1, a_list+1))
-        
+    images =  images[1:a_list]
     dic ={'data':data, 'images':images, 'noimages':noimages, 'cdata':cdata, 'udata':userdata}
     return render(request, 'viewdetails.html', dic)
 
