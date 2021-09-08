@@ -78,18 +78,21 @@
                   <h3>{{ request.user.first_name }} {{ request.user.last_name }}</h3>
                   <br/>
                   <p class='mb-2'>Username : {{request.user.username}}</p>
+                  <p class='mb-2'>DealerID : CARSIFY-{{request.user.date_joined.year}}-{{request.user.id}}</p>
                   <!--
                   <p id="location" class="text-muted p-2"> <i class="fa fa-map-marker"></i> {{useraddress.City}}, {{useraddress.State}}, {{useraddress.country}} </p>
                   -->
                 </div>
                 <h5><a href="{% url 'CarsifyApp:Editprofile' %}"><i class="fa fa-pencil"></i>Edit</a></h5>
               </div>
-              <a id="new_profile"><i class="fa fa-plus"></i>New Photo</a>
+              <br><Br>
+              <a id="new_profile" ><i class="fa fa-plus"></i>New Photo</a>
+              
               <form method="post" action="" enctype="multipart/form-data">
                 {% csrf_token %}
                 <input style="display: none;" onchange="ChangeImage(event)"  type="file" name="image" id="upload_profile">
-                <BR>
-                <button class="btn" type="submit">Save</button>
+                
+                <button class="upass" type="submit"><i class="fa fa-check"> </i> Make Permanent Change</button>
             </form>
 
               <!-- <h6 class="mt-5"> <i class="fa fa-user"></i> About</h6> -->
@@ -124,7 +127,7 @@
             </div>
             <div class="row">
               <div class="col-lg-5">
-                <h6><i class="fa fa-phone"></i>Email Address</h6>
+                <h6><i class="fa fa-envelope-open-text"></i>Email Address</h6>
               </div>
               <div class="col-lg-7">
                 <p>{{useralldata.user.email}}</p>
@@ -212,6 +215,6 @@
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-    <script src="{% static 'assets/javascripts/navigation.js"></script>
+    <script src="{% static 'assets/javascripts/navigation.js' %}"></script>
   </body>
 </html>

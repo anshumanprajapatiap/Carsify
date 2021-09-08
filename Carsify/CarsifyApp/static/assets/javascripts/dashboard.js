@@ -171,6 +171,7 @@
             document.querySelector(".fivem").style.display="none";
         }
     }
+    /*
     
     checkone.onclick=()=>{
         checkone.style.color="#007991";
@@ -244,7 +245,7 @@
         document.querySelector("body").style.position="static";
     }
 
-
+*/
 
 
 

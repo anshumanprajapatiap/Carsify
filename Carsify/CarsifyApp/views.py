@@ -9,8 +9,14 @@ from django.http import JsonResponse, HttpResponse
 from django.template.loader import render_to_string
 from django.db.models import Min,Max,Q
 import datetime
-# import CarsifyApp.image_processing
-# views.py file
+from django.core.mail import EmailMultiAlternatives
+import cv2
+import numpy as np
+from zipfile import ZipFile
+import os
+from os.path import basename
+from wsgiref.util import FileWrapper
+
 
 from django.contrib.auth.hashers import check_password
 # Create your views here.
@@ -98,14 +104,13 @@ def Login_Signup(request):
         data = User.objects.filter(username=us)
         if user:
             login(request, user)
-            print("login")
             return redirect('CarsifyApp:Dashboard')
         else:
             if data:
                 error = True
             else:
                 not_exist=True
-
+    
     d = {"error": error, "not_exist": not_exist}
     return render(request, 'login.html', d)
 
@@ -124,9 +129,15 @@ def Signup(request):
         else:
             # create new user
             fname = fullname.split()
+            if len(fname) >= 2:
+                fname = fname
+            else:
+                fname.append(' ')
+
             user = User.objects.create_user(username=email, email=email, first_name=fname[0], last_name=fname[1],
                                      password=password)
-            UserProfile.objects.create(user=user)
+            UserProfile.objects.create(user=user, ContactNo=number, Email=email)
+
             type = Address_Type.objects.all()
             for i in type:
                 Address.objects.create(user=user, Address_Typee=i)
@@ -165,9 +176,12 @@ def Dashboard(request):
         if 'q' in request.GET:
             q = request.GET['q']
             ids=[]
+            #searchdata  by company
             companyData = Companies.filter(Car_Company_Name__icontains =q)
+
             for data in companyData:
                 ids.append(data.get('id'))  
+ 
             car_data = Individual_Car_Details.objects.filter(Company_id__in=ids).order_by('-id')
             if(q.strip()==""):
                 print("A")
@@ -191,12 +205,40 @@ def filter_data(request):
     owners = request.GET.getlist('owner[]')
     car_body_type = request.GET.getlist('car_body_type[]')
     state = request.GET.getlist('state[]')
-    minPrice = request.GET['minPrice']
-    maxPrice = request.GET['maxPrice']
-    minYear = request.GET['minYear']
-    maxYear = request.GET['maxYear']
-    minKm = request.GET['minKm']
-    maxKm = request.GET['maxKm']
+    
+    try:
+        minPrice = request.GET['minPrice']
+    except:
+        minPrice = 0
+
+    try:
+        maxPrice = request.GET['maxPrice']
+    except:
+        maxPrice = 10000000
+
+    try:
+        minYear = request.GET['minYear']
+    except:
+        minYear = 2000
+
+    try:
+        maxYear = request.GET['maxYear']
+    except:
+        maxYear = 3000
+
+    try:
+        minKm = request.GET['minKm']
+    except:
+        minKm =0
+
+    try:
+        maxKm = request.GET['maxKm']
+    except:        
+        maxKm = 1000000
+
+
+    
+    
     car_data = Individual_Car_Details.objects.filter(Car_Status=False)
     #sort
     sort = request.GET['orderby']    
@@ -251,8 +293,64 @@ def filter_data(request):
 
 
 def Addcarsuccess(request):
-
     return render(request, 'addcarsuccess.html')
+
+
+
+
+
+def resize_img(img_path, img_name):
+    pic=cv2.imread(img_path)
+
+    # canvas_size=(333,500)
+    if 333/500 < pic.shape[0]/pic.shape[1]:
+        x=333
+        temp=(333-pic.shape[0])/pic.shape[0]
+        y=pic.shape[1]+(temp*pic.shape[1])
+    else:
+        y=500
+        temp=(500-pic.shape[1])/pic.shape[1]
+        x=pic.shape[0]+(temp*pic.shape[0])
+    
+    width = int(y)
+    height = int(x)
+    dim = (width, height)
+    resized = cv2.resize(pic, dim, interpolation = cv2.INTER_AREA)
+        
+    img_pic = np.zeros([333,500,3],dtype=np.uint8)
+    img_pic[:] = 255
+    pad_x=0
+    pad_y=0
+    if width<500:
+        pad_x=(500-width)//2
+    if height<333:
+        pad_y=(333-height)//2
+    img_pic[pad_y:pad_y+height,pad_x:pad_x+width]=resized
+    
+    font = cv2.FONT_HERSHEY_SIMPLEX
+  
+    # org
+    org = (100, 200)
+    
+    # fontScale
+    fontScale = 1
+    
+    # Blue color in BGR
+    color = (180,201,94)
+    
+    # Line thickness of 2 px
+    thickness = 2
+    
+    # Using cv2.putText() method
+    img_pic = cv2.putText(img_pic, 'Copyright Carsify.in', org, font, fontScale, color, thickness, cv2.LINE_AA)
+
+   
+    
+    cv2.imwrite('media/new'+img_name, img_pic)
+
+    return 'new'+img_name
+
+
 
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Addcar(request):
@@ -293,8 +391,7 @@ def Addcar(request):
         InsuranceType = x['InsuranceType']
         Comment = x['Comment']
 
-        #handeling multiple images
-        Images = request.FILES.getlist('Images')
+        Images = request.FILES.getlist('Images')       
         showimage = Images[0]
 
         #create a vehicle object here
@@ -304,9 +401,29 @@ def Addcar(request):
             Car_Varient=Varient, KM=Km, Color=color, Price=Price, Insurance=Insurance, Insurance_Type=InsuranceType, \
             City=Registeredcity, Discription=Comment, Showimage=showimage)
 
+        #show image handeled
+        imm = cid.Showimage
+        img_path = imm.path
+        img_name = str(imm)
+        new_img = resize_img(img_path, img_name)
+        cid.Showimage = new_img
+        cid.save()
+        os.remove(img_path)
+
         #creating image objects
         for image in Images:
             photo = Individual_Car_Images.objects.create(carid=cid, Image=image)
+
+            imm = photo.Image
+
+            img_path = imm.path
+            img_name = str(imm)
+
+            new_img = resize_img(img_path, img_name)
+            photo.Image = new_img
+            photo.save()
+            os.remove(img_path)
+
 
         #return success page
         return redirect('CarsifyApp:Addcarsuccess')
@@ -394,6 +511,7 @@ def Editprofile(request):
 
     types = Address_Type.objects.all()
     address = Address.objects.filter(user=request.user)
+
     
     try:
         Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
@@ -419,11 +537,11 @@ def Editprofile(request):
             useralldata.ContactNo = x.get('contactNo')
             useralldata.Email = x.get('EmailAddress')
             NewAddress = x.get("Home").split(",")
-            WorkAddress = x.get("Work").split(",")
+            #WorkAddress = x.get("Work").split(",")
 
             #x = NewAddress[0].split(":-")[0].capitalize()
-            print("Home", NewAddress)
-            print("Work", WorkAddress)
+            #print("Home", NewAddress)
+            #print("Work", WorkAddress)
 
             '''
             if( x=="Home"):
@@ -434,7 +552,7 @@ def Editprofile(request):
                 address.Address_Typee= types[0]
             '''
             print(address[0].Address_Typee)
-            address[0].Address_Typee= types[0]  
+            #address[0].Address_Typee= types[0]  
             address[0].apartment_address = NewAddress[0]
             address[0].street_address = NewAddress[1]
             address[0].City = NewAddress[2]
@@ -442,8 +560,9 @@ def Editprofile(request):
             address[0].country = NewAddress[4]
             address[0].zip = NewAddress[5]
             address[0].save()
+       
             
-
+            '''
             address[1].Address_Typee= types[1]
             address[1].apartment_address = WorkAddress[0]
             address[1].street_address = WorkAddress[1]
@@ -452,6 +571,7 @@ def Editprofile(request):
             address[1].country = WorkAddress[4]
             address[1].zip = WorkAddress[5]
             address[1].save()
+            '''
 
             useralldata.save()
             return redirect('CarsifyApp:Profile')
@@ -493,7 +613,7 @@ def Editprofile(request):
         except:
             Aadhar = "XXXX XXXX XXXX"
 
-    dic = {'useralldata':useralldata, 'useraddress': address,'alert_flag':False,'Password':not(has_password),"Aadhar":Aadhar}
+    dic = {'useralldata':useralldata, 'add':address[0],'useraddress': address,'alert_flag':False,'Password':not(has_password),"Aadhar":Aadhar}
 
     return render(request, 'editprofile.html',dic)
 
@@ -513,8 +633,7 @@ def MYvehicle(request):
 @login_required(login_url='CarsifyApp:LoginSignup')
 def Edit_Vehicle_Details(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
-    Companies = Car_Company.objects.all()
-    car_model = []
+    images = Individual_Car_Images.objects.filter(carid=data)
     states = India_States.objects.all()
     owners = Number_of_Owners.objects.all() 
     fav_ids = []
@@ -526,7 +645,7 @@ def Edit_Vehicle_Details(request, cid):
     
     if request.POST:
         x = request.POST
-        data.Company = Car_Company.objects.get(Car_Company_Name=x.get('companyname'))
+        # data.Company = Car_Company.objects.get(Car_Company_Name=x.get('companyname'))
         # data.Model = x.get('model')
         data.Registration_State = India_States.objects.get(id=x.get('registrationState'))
         data.City = x.get('City')
@@ -540,9 +659,98 @@ def Edit_Vehicle_Details(request, cid):
         #     Car_Varient=Varient, KM=Km, Color=color, Insurance=Insurance, Insurance_Type=InsuranceType, \
         # Showimage=showimage
 
+    a_list = len(images)
+    noimages = list(range(1, a_list+1))
+    images =  images[1:a_list]
 
-    dic={'data':data,'fav':fav,'states':states,'companies':Companies,'car_model':car_model,'owners':owners}
+    dic={'data':data,'fav':fav,'states':states,'owners':owners, 'images':images, 'noimages':noimages,}
     return render(request, 'editmyvehicle.html', dic)
+
+
+#download zip images
+@login_required(login_url='CarsifyApp:LoginSignup')
+def DownloadImages(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    images = Individual_Car_Images.objects.filter(carid=data)
+    
+    with ZipFile('carsify.in.zip', 'w') as export_zip:
+        for image in images:       
+            
+            export_zip.write( image.Image.path, basename(image.Image.path) )
+    
+    wrapper = FileWrapper(open('carsify.in.zip', 'rb'))
+    content_type = 'application/zip'
+    content_disposition = 'attachment; filename=carsify.in.zip'
+
+    response = HttpResponse(wrapper, content_type=content_type)
+    response['Content-Disposition'] = content_disposition
+    return response
+
+
+#mail files
+@login_required(login_url='CarsifyApp:LoginSignup')
+def MailImages(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    images = Individual_Car_Images.objects.filter(carid=data)
+
+    subject, from_email, to = 'hello', 'carsify.in@gmail.com', request.user.email
+    text_content = 'This is an important message.'
+    html_content = '<p>This is an <strong>important</strong> message.</p>'
+    msg = EmailMultiAlternatives(subject, text_content, from_email, [to])
+    msg.attach_alternative(html_content, "text/html")
+    
+    for image in images:
+        imm = image.Image
+        img_path = imm.path
+        msg.attach_file(img_path)
+
+    msg.send()
+
+    return redirect('CarsifyApp:Dashboard')
+
+#edit vehicle Images
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Edit_Vehicle_Images(request, cid):
+    data = Individual_Car_Details.objects.get(id=cid)
+    images = Individual_Car_Images.objects.filter(carid=data)
+
+    if request.method == 'POST':
+        Images = request.FILES.getlist('img')
+
+        #creating image objects
+
+        for image in Images:
+            photo = Individual_Car_Images.objects.create(carid=data, Image=image)
+
+            imm = photo.Image
+
+            img_path = imm.path
+            img_name = str(imm)
+
+            new_img = resize_img(img_path, img_name)
+            photo.Image = new_img
+            photo.save()
+            os.remove(img_path)
+        
+
+
+    dic={'data':data, 'images':images}
+    return render(request, 'editvehicleimage.html', dic)
+
+
+@login_required(login_url='CarsifyApp:LoginSignup')
+def Delete_Vehicle_Image(request, imgid):
+
+    image = Individual_Car_Images.objects.get(id=imgid) 
+    imm = image.Image
+    img_path = imm.path
+    image.delete()
+    os.remove(img_path)
+
+    return redirect('CarsifyApp:MYvehicle')
+
+
+
 
 #edit individual and update function
 @login_required(login_url='CarsifyApp:LoginSignup')
@@ -583,6 +791,8 @@ def Viewdetails(request, cid):
     a_list = len(images)
     noimages = list(range(1, a_list+1))
     images =  images[1:a_list]
+
+
     dic ={'data':data, 'images':images, 'noimages':noimages, 'cdata':cdata, 'udata':userdata}
     return render(request, 'viewdetails.html', dic)
 
@@ -609,3 +819,7 @@ def Add_to_Favourite(request, cid):
         UserFavouriteCars.objects.create(user=request.user, carid=data)
 
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+
+

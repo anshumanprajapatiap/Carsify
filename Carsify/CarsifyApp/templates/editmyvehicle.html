@@ -149,7 +149,7 @@
                 {% endfor %}
               </ol>
 
-              <div class="carousel-inner">
+              <div class="carousel-inner" style="height: 65vh">
                 <div class="carousel-item active">
                   <img class="d-block w-100" src="{{ data.Showimage.url }}" />
                 </div>
@@ -189,54 +189,14 @@
           <div class="col-lg-4 py-4 features-details">
             <div class="py-3 model">
               <h3>Features</h3>
-              {% if fav %}
-              <h3>
-                <a
-                  href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}"
-                  title="Add to Favourites"
-                  ><i class="far fa-heart"></i
-                ></a>
-              </h3>
-              {% else %}
-              <h3>
-                <a
-                  href="{% url 'CarsifyApp:Add_to_Favourite' data.id %}"
-                  title="Remove from Favourites"
-                  ><i class="fa fa-heart"></i
-                ></a>
-              </h3>
-              {% endif %}
+             
             </div>
 
             <div class="py-3 model">
-              <h5>
-                <i class="fas fa-car"></i>
-                <select name="companyname" class="w-75" required>
-                </h5>
-                
-                  {% for company in companies %} 
-                 
-                  {% if data.Company == company %}
-                  
-                  <option value="{{company}}" selected>
-                    {{company}}
-                  </option>
-                 
-                  {% else %}
-                  <option value="{{company}}">
-                    {{company}}
-                  </option>
-                  {% endif %} {% endfor %}
-        
-                </select>
-                
-              
-              <h5><i class="fa fa-plus"></i>{{data.Model}}</h5>
-              <!-- <select name="model"  required>
-                {% for model in car_model %}
-                <option value="{{model}}">{{model.Car_Model_Name}}</option>
-                {% endfor %}
-              </select> -->
+              <h5> <i class="fas fa-car"> </i> {{ data.Company }} </h5><br>
+            </div>
+            <div>
+              <h5 class="py-3 model"><i class="fa fa-plus"> </i> {{ data.Model.Car_Model_Name }} - {{ data.Car_Varient }} </h5>
             </div>
             <div class="py-3 model">
               <h5>
@@ -265,7 +225,7 @@
             <div class="py-3 model">
               <h5>
                 <i class="fa fa-map"></i
-                ><input type="text" value="{{data.Card_Registration_Number}}" name="RegistrationNumber"  required8 />
+                ><input type="text" value="{{data.Card_Registration_Number}}" name="RegistrationNumber"  required/>
               </h5>
             </div>
             <div class="py-3 model">
@@ -293,8 +253,9 @@
                 <i class="fas fa-rupee-sign mr-2"></i><input type="number" value="{{data.Price}}" name="Price" required/>
               </h4>
             </div>
+          
             <div class="py-3 model">
-              <h5><i class="fa fa-edit"></i>Edit Images</h5>
+              <h5><a href="{% url 'CarsifyApp:Edit_Vehicle_Images' data.id %}"><i class="fa fa-edit"></i>Edit Images</h5></a>
             </div>
           </div>
         </div>

@@ -414,11 +414,23 @@ html,body{
 
 
 
+/*  --Anshuman Edit-- */
+
+
+.scrollable{
+  margin-right:25px;
+  background-color:transparent  !important;
+  border: transparent;
+  padding: 10px;
+}
+
+.scrollable .option{
+  padding: 10px;
+}
 
 
 
-
-
-
-
-
+.slider-range{
+  color: #5ec9a9!important;
+  background-color: aquamarine!important;
+}

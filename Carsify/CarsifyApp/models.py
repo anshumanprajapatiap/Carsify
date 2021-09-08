@@ -1,7 +1,9 @@
 from django.db import models
 from django.contrib.auth.models import User
-#import cv2
-#import numpy as np
+import os
+from django.conf import settings
+
+
 
 # Create your models here.
 class India_States(models.Model):
@@ -124,8 +126,6 @@ class Individual_Car_Details(models.Model):
     def __str__(self):
         return self.user.username+' -- '+ self.Card_Registration_Number
 
-
-
 class Individual_Car_Images(models.Model):
     carid = models.ForeignKey(Individual_Car_Details,on_delete=models.CASCADE,null=True)
     Image = models.ImageField(null=False, blank=False)
@@ -133,9 +133,6 @@ class Individual_Car_Images(models.Model):
     def __str__(self):
         return self.carid.user.username +' -- '+ self.carid.Card_Registration_Number
 
-    def save_image(self):
-        pic = self.Image
-        
 
 #user Favourites cars
 class UserFavouriteCars(models.Model):

@@ -68,7 +68,7 @@
     <!--------------------------------------------body main--------------------------------------------->
     <div class="container cont">
         <div class="row">
-            <!- refine by laptop -->
+            <!-- refine by laptop -->
             <div class="col-lg-3 refineby">
                 <ul>
                     <h3>Refine By <span><i class="fa fa-arrow"></i></span></h3>
@@ -113,7 +113,7 @@
                                      <li>
                                         <input class="filter-checkbox" data-filter="owner" value="{{ owner.id }}" type="checkbox">
 
-                                        {{owner.Owners}} <sup>{{owner}}</sup> Owner</li>
+                                        {{owner.Owners}}<sup>{{owner}}</sup> Owner</li>
 
                                     {% endfor %}
 
@@ -241,7 +241,7 @@
                                 </div>
                             </div>
                             <div class="row py-2">
-                                <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ car.Model.Car_Model_Name}}</div>
+                                <div class="col-8 car-modal"><i class="fa fa-car"></i>{{ car.Model.Car_Model_Name}} - {{car.Car_Varient }} </div>
                                 <div class="col-4"><p class="float-right"><i class="fa fa-plus"></i> {{ car.Owners.Owners }}</p></div>
                             </div>
                             <div class="row py-2">
@@ -352,39 +352,32 @@
                                 
                             </ul>
 
-                        <!--
-                            <label class="refine_label" for="">Registered Location</label>
-                            <input type="text" class="regLoc" name="loc" data-filter="loc" id="" value="{{loc}}" oninput="loc.value = this.value"> 
                             <label class="refine_label" for="">Model Year</label>
                             <div class="inputs">
-                        -->
-                                <!--
 
-                                <input type="number" value="2000" placeholder="Min" class="model_year">
-                                <input type="number" placeholder="Max" class="model_year">
-                                -->
+                                <input type="range" min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}} id="rangeInputYearM" oninput="maxYearM.value=this.value"/>
+                               <input type="number" value={{minmaxYear.Date_of_Manufacturing__max.year}} min={{minmaxYear.Date_of_Manufacturing__min.year}} max={{minmaxYear.Date_of_Manufacturing__max.year}}  placeholder="Max" onkeyup="rangeInputYearM.value=this.value" id="maxYearM" class="model_year"/>
 
-                            
-                            </div>
+                            </div>                                
+
                             <label class="refine_label" for="">Kilometers Driven</label>
                             <div class="inputs">
 
+                                <input type="range" min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}} id="rangeInputKmM" oninput="maxKmM.value=this.value"/>
+                               <input type="number" value={{minmaxKm.KM__max}} min={{minmaxKm.KM__min}} max={{minmaxKm.KM__max}}  placeholder="Max" onkeyup="rangeInputKmM.value=this.value" id="maxKmM" class="model_year"/>
 
-                                    <!--
-                                <input type="number" value="0" class="model_year">
-                                <input type="number" placeholder="Max" class="model_year">
-                                -->
 
                             </div>
+
                             <label class="refine_label" for="">Price</label>
                             <div class="inputs">
 
-                                <!--
-                                <input type="number" value="0" class="model_year">
-                                <input type="number" placeholder="Max" class="model_year">
-                                -->
+                               <input type="range" min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}} id="rangeInputM" oninput="maxPriceM.value=this.value"/>
+                               <input type="number" value={{Minmaxprice.Price__max}} min={{Minmaxprice.Price__min}} max={{Minmaxprice.Price__max}}  placeholder="Max" onkeyup="rangeInputM.value=this.value" id="maxPriceM" class="model_year"/>
 
                             </div>
+                            
+    
                         </ul>
                     </div>
                 </div>
@@ -392,8 +385,8 @@
 
 
             <div class="filter-footer">
-                <p>Apply</p>
-                <p>Reset</p>
+                <!-- <p>Apply</p> -->
+                <a style="color: #fff;" href="{% url 'CarsifyApp:Dashboard' %}"><p>Reset</p></a>
             </div>
 
        </div>
@@ -406,14 +399,29 @@
             <hr>
         </div>
 
-        <div class="sort-cont">
-            <ul>
-               <li class="testing" id="checkone"><p>Relevance<span><i class="fa checkicon1"></i></span></p></li>
-                <li class="testing" id="checktwo"><p>Low To High<span><i class="fa checkicon2"></i></span></p></li>
-                <li class="testing" id="checkthree"><p>New To Old<span><i class="fa checkicon3"></i></span></p></li>
-                <li class="testing" id="checkfour"><p>Old To New<span><i class="fa checkicon4"></i></span></p></li>
-                <li class="testing" id="checkfive"><p>High To Low<span><i class="fa checkicon5"></i></span></p></li>
-            </ul>
+
+        <div class="sort-cont" >
+
+           
+            <select size="6" id="chsort" class="scrollable">
+                <ul>
+                    <option  value="Relevance"> <li class="testing" id="checkone" value="Relevance"><p>Relevance<span><i class="fa checkicon1"></i></span></p></li>
+                    </option>
+                    
+                    <option value="price+"> <li class="testing" id="checktwo" value="price-"><p>Low To High<span><i class="fa checkicon2"></i></span></p></li>
+                    </option>
+                    
+                    <option value="price-"><li class="testing" id="checkthree" value="year+"><p>New To Old<span><i class="fa checkicon3"></i></span></p></li>
+                    </option>
+                    
+                    <option value="year+">  <li class="testing" id="checkfour" value="year-"><p>Old To New<span><i class="fa checkicon4"></i></span></p></li>
+                    </option>
+                    
+                    <option value="year-"> <li class="testing" id="checkfive" value="price+"><p>High To Low<span><i class="fa checkicon5"></i></span></p></li>
+                    </option>
+                <ul>
+            </select>
+           
         </div>
     </div>
 </div>
@@ -426,7 +434,13 @@
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 <script src="{% static 'assets/javascripts/dashboard.js' %}"></script>
 <script src="{% static 'assets/javascripts/navigation.js' %}"></script>
+
 <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="{% static 'assets/javascripts/mobile-filter-product.js' %}"></script>
 <script src="{% static 'assets/javascripts/filter-product.js' %}"></script>
+
+
+
+
 </body>
 </html>

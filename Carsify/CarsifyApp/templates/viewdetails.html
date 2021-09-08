@@ -185,48 +185,55 @@
           </div>
         </div>
         <div class="col-lg-4 py-4 features-details">
-          <div class="py-3 model">
-            <h3>Features</h3>
-            <h3>
-              <a href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}">
-              <i class="fa fa-heart"></i></a>
-            </h3>
+          
 
-          </div>
+            <div class="py-3 model">
+              <h3>Features</h3>
+
+
+              {% if fav %}
+              <h3>
+                
+                <a
+                  href="{% url 'CarsifyApp:Delete_From_Favourite' data.id %}"
+                  title="Add to Favourites"
+                  ><i class="fa fa-heart"></i
+                ></a>
+              </h3>
+              {% else %}
+              <h3>
+                <a
+                  href="{% url 'CarsifyApp:Add_to_Favourite' data.id %}"
+                  title="Remove from Favourites"
+                  ><i class="far fa-heart"></i
+                ></a>
+              </h3>
+              {% endif %}
+            </div>
+
+
           <div class="py-3 model">
-            <h5><i class="fas fa-car"></i>{{data.Company}}</h5>
-            <h5><i class="fa fa-plus"></i>{{data.Model.Car_Model_Name}}</h5>
+            <h5><i class="fas fa-car"> </i> {{ data.Company }}</h5>
+            <h5><i class="fa fa-plus"> </i> {{ data.Model.Car_Model_Name }} - {{ data.Car_Varient }} </h5>
           </div>
           <div class="py-3 model">
             <h5>
               <i class="fas fa-calendar-check"></i
               >{{data.Date_of_Manufacturing.year}}
             </h5>
-            <h5><i class="fa fa-user"></i>{{data.Owners.Owners}} {{data.Owners}}</h5>
+            <h5><i class="fa fa-user"></i>{{data.Owners.Owners}}{{data.Owners}} Party</h5>
           </div>
           <div class="py-3 model">
             <h5><i class="fa fa-map"></i>{{data.Card_Registration_Number}}</h5>
           </div>
           <div class="py-3 model">
             <h5>
-              <i class="fa fa-map-marker"></i>{{data.Registration_State }}
+              <i class="fa fa-map-marker"></i> {{data.City}} - {{data.Registration_State }}
             </h5>
           </div>
           <div class="py-3 model">
-            <h5><i class="fa fa-download"></i>Save Images</h5>
-              <ul list-style="none" class="d-block">
-
-                <!--
-                  {% for image in images %}
-                <li>
-                  <a href="{{image.Image.url}}" id="downloadLink" download
-                    >{{image.Image.name}}</a
-                  >
-                </li>
-                {% endfor %}
-              </ul>
-              -->
-
+            <h5><a href="{% url 'CarsifyApp:MailImages' data.id %}"> <i class="fa fa-envelope-open-text"></i> Mail Images </a></h5>
+            <h5><a href="{% url 'CarsifyApp:DownloadImages' data.id %}" id="downloadLink" download> <i class="fa fa-download"></i> Save Images </a></h5>
           </div>
           <div class="py-3 model">
             <h4><i class="fas fa-rupee-sign mr-2"></i>{{data.Price}}</h4>

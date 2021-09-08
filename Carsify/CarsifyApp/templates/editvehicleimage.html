@@ -1,0 +1,122 @@
+{% load static %}
+<!DOCTYPE html>
+<!-- Created By CodingNepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <!-- <title>Responsive Navbar with Search Box | CodingNepal</title> -->
+    
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/navigation.css' %}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css" integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p" crossorigin="anonymous"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" type="image/.png">
+    <link rel="stylesheet" href="{% static 'assets/stylesheets/editimages.css' %}">
+
+    <title>Edit Images</title>
+</head>
+  <body>
+
+      <div class="boody">
+      <!-------------------------------navigation------------------------------------------------->
+      <nav>
+        <div class="menuicon">
+            <span class="fas fa-bars"></span>
+        </div>
+        <div class="logoo">
+          <img src="{% static 'assets/images/logo7.png' %}"/>
+        </div>
+        <div class="navitems">
+            <li><a href="{% url 'CarsifyApp:Dashboard' %}">Home</a></li>
+            <li><a href="#">
+                <div class="dropdown show">
+                    <a class="btn dropdown-toggle dropdown-navi" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      Booking Management
+                    </a>
+                  
+                    <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:Addcar' %}">Add Vehicle</a>
+                      <a class="dropdown-item" href="{% url 'CarsifyApp:MYvehicle' %}">My Vehicle</a>
+                      
+                    </div>
+                  </div>
+            </a></li>
+            <li><a href="#"><div class="dropdown show">
+              <a class="btn dropdown-toggle dropdown-navi" href="profile.html" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+               Profile
+              </a>
+            
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Profile' %}">View Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Editprofile' %}">Edit Profile</a>
+                <a class="dropdown-item" href="{% url 'CarsifyApp:Logout' %}">Logout</a>
+              </div>
+            </div></a></li>
+            <li><a href="{% url 'CarsifyApp:Favourites' %}">Favourites</a></li>
+            <!-- <li><a href="#">Feedback</a></li> -->
+        </div>
+        <div class="searchicon">
+            <span class="fas fa-search"></span>
+        </div>
+        <div class="cancelicon">
+            <span class="fas fa-times"></span>
+        </div>
+        <form action="/dashboard">
+                <input name="q" type="search" class="search-data" placeholder="Search" required>
+                <button type="submit" class="fas fa-search"></button>
+        </form>
+    </nav>
+    <!--------------------------------------------body main--------------------------------------------->
+    
+
+    <div class="container imagetable">
+        <h2>Image Table</h2>
+        <table>
+            <tr>
+                <th>Image</th>
+                
+                <th>Delete</th>
+            </tr>
+        
+            {% for image in images %}
+            <tr>
+                <td>{{image}}</td>
+                
+                <td> <a href="{% url 'CarsifyApp:Delete_Vehicle_Image' image.id %}"> <i class="fa fa-trash">  Delete</i></a></td>
+            </tr>
+            {% endfor %}
+            
+        
+            </table>
+    </div>
+    
+
+    <div class="container newimage">
+        <h3>Can upload single as well as multiple images</h3>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            Select Image: 
+            <input  multiple type="file" name="img"> 
+            <button type="submit">Add</button>
+        </form>
+        
+    </div>
+    
+
+    </div>
+
+
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<script src="{% static 'assets/javascripts/navigation.js' %}"></script>
+
+<script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+
+
+
+</body>
+</html>
