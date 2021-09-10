@@ -24,3 +24,17 @@ table {
   .newimage{
       align-items: center;
   }
+
+
+  .addimage{
+    margin-top: 20px;
+    padding: 5px 20px;
+    outline: none;
+    border: none;
+    border-radius:5px;
+    background: #007991;  
+    background: -webkit-linear-gradient(to right, #5ec9a9, #007991);  
+    background: linear-gradient(to right, #5ec9a9, #007991); 
+    color: white;
+    margin-bottom: 30px;
+  }

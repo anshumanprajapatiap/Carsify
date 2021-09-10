@@ -167,6 +167,7 @@ def Dashboard(request):
     minmaxKm = Individual_Car_Details.objects.aggregate(Min('KM'), Max('KM'))
     states = India_States.objects.all()
     Companies = Car_Company.objects.values()
+    models = Car_Model.objects.values()
     fav_ids = []
     
     for i in UserFavouriteCars.objects.filter(user=request.user).values():
@@ -176,13 +177,15 @@ def Dashboard(request):
         if 'q' in request.GET:
             q = request.GET['q']
             ids=[]
+            models_list = []
             #searchdata  by company
             companyData = Companies.filter(Car_Company_Name__icontains =q)
-
+            carmodels = models.filter(Car_Model_Name__icontains = q)
             for data in companyData:
                 ids.append(data.get('id'))  
- 
-            car_data = Individual_Car_Details.objects.filter(Company_id__in=ids).order_by('-id')
+            for data in carmodels:
+                models_list.append(data.get('Car_Model_Name'))
+            car_data = Individual_Car_Details.objects.filter(Q(Company_id__in=ids) | Q(Model__Car_Model_Name__in = models_list )).order_by('-id')
             if(q.strip()==""):
                 print("A")
                 car_data = Individual_Car_Details.objects.filter(Car_Status=False)
@@ -477,7 +480,7 @@ def Profile(request):
     else:
         Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
     
-    address = Address.objects.filter(user=request.user)
+    address = Address.objects.filter(user=request.user).first()
 
     dic = {'useralldata':useralldata, 'useraddress': address,'Aadhar':Aadhar}
     return render(request, 'profile.html', dic)
@@ -517,7 +520,6 @@ def Editprofile(request):
         Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
     except:
         Aadhar = "XXXX XXXX XXXX"
-
     if request.method == 'POST':
         if 'profilePicBtn' in request.POST:
             img = request.FILES["image"]
@@ -527,7 +529,7 @@ def Editprofile(request):
         if 'profileBtn' in request.POST:
             x = request.POST
             addharno = x.get('aadhar')
-            if addharno=="":
+            if addharno=="" or addharno=="XXXX XXXX XXXX":
                 useralldata.AddharNumber = 0
             else:
                 useralldata.AddharNumber = int(x.get('aadhar').replace(" ",""))
@@ -551,15 +553,18 @@ def Editprofile(request):
             else:
                 address.Address_Typee= types[0]
             '''
-            print(address[0].Address_Typee)
+
             #address[0].Address_Typee= types[0]  
-            address[0].apartment_address = NewAddress[0]
-            address[0].street_address = NewAddress[1]
-            address[0].City = NewAddress[2]
-            address[0].State = NewAddress[3]
-            address[0].country = NewAddress[4]
-            address[0].zip = NewAddress[5]
-            address[0].save()
+            address = Address.objects.filter(user=request.user)[0]
+            address.User = request.user
+            address.apartment_address = NewAddress[0]
+            address.street_address = NewAddress[1]
+            address.City = NewAddress[2]
+            address.State = NewAddress[3]
+            address.country = NewAddress[4]
+            address.zip = NewAddress[5]
+            address.save()
+            print( Address.objects.filter(user=request.user)[0].City)
        
             
             '''
@@ -612,7 +617,6 @@ def Editprofile(request):
             Aadhar = str(useralldata.AddharNumber)[0:4]+" "+str(useralldata.AddharNumber)[4:8]+" "+str(useralldata.AddharNumber)[8:12]
         except:
             Aadhar = "XXXX XXXX XXXX"
-
     dic = {'useralldata':useralldata, 'add':address[0],'useraddress': address,'alert_flag':False,'Password':not(has_password),"Aadhar":Aadhar}
 
     return render(request, 'editprofile.html',dic)
@@ -739,15 +743,22 @@ def Edit_Vehicle_Images(request, cid):
 
 
 @login_required(login_url='CarsifyApp:LoginSignup')
-def Delete_Vehicle_Image(request, imgid):
+def Delete_Vehicle_Image(request):
 
-    image = Individual_Car_Images.objects.get(id=imgid) 
+    id1 = request.GET.get('id', None)
+    image = Individual_Car_Images.objects.get(id=id1) 
     imm = image.Image
     img_path = imm.path
-    image.delete()
     os.remove(img_path)
+    image.delete()
+    data = {
+            'deleted': True
+        }
+    
 
-    return redirect('CarsifyApp:MYvehicle')
+    
+    return JsonResponse(data)
+
 
 
 
@@ -787,7 +798,7 @@ def Viewdetails(request, cid):
     data = Individual_Car_Details.objects.get(id=cid)
     images = Individual_Car_Images.objects.filter(carid=data)
     cdata = UserFavouriteCars.objects.filter(carid=data)
-    userdata =  UserProfile.objects.get(user = data.user)
+    userdata =  UserProfile.objects.filter(user = data.user).first()
     a_list = len(images)
     noimages = list(range(1, a_list+1))
     images =  images[1:a_list]

@@ -32,10 +32,11 @@ urlpatterns = [
     #vehicle status
     path('editvehicle/<int:cid>', Edit_Vehicle_Details, name='Edit_Vehicle_Details'),
     path('editvehicleimage/<int:cid>', Edit_Vehicle_Images, name='Edit_Vehicle_Images'),
-    path('deletevehicleimage/<int:imgid>', Delete_Vehicle_Image, name='Delete_Vehicle_Image'),
+    path('deletevehicleimage/', Delete_Vehicle_Image, name='Delete_Vehicle_Image'),
     path('disable/<int:cid>', Disable_My_Vehicle, name='Disable_My_Vehicle'),
     path('enable/<int:cid>', Enable_My_Vehicle, name='Enable_My_Vehicle'),
-    path('deletemycar/<int:cid>', Delete_My_Car, name='Delete_My_Car'),
+    
+    #path('deletemycar/<int:cid>', Delete_My_Car, name='Delete_My_Car'),
 
 
     path('viewdetails/<int:cid>', Viewdetails, name='Viewdetails'),
