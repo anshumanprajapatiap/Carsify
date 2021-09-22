@@ -232,6 +232,11 @@
             </h5>
           </div>
           <div class="py-3 model">
+            <h5>
+              <i class="fa fa-map-marker"></i> {{data.KM}}  KM
+            </h5>
+          </div>
+          <div class="py-3 model">
             <h5><a href="{% url 'CarsifyApp:MailImages' data.id %}"> <i class="fa fa-envelope-open-text"></i> Mail Images </a></h5>
             <h5><a href="{% url 'CarsifyApp:DownloadImages' data.id %}" id="downloadLink" download> <i class="fa fa-download"></i> Save Images </a></h5>
           </div>
