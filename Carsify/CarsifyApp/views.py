@@ -190,7 +190,7 @@ def Dashboard(request):
                 print("A")
                 car_data = Individual_Car_Details.objects.filter(Car_Status=False)
 
-
+            car_data = car_data.filter(Car_Status=False)
     dic = {'car_data': car_data, 'car_company_data': car_company_data, \
            'fuels':fuels,'transmission_type':transmission_type,'owners':owners, \
            'car_body_types':Body_Types, 'Minmaxprice':minmaxPrice, 'minmaxYear': minmaxYear, 'minmaxKm': minmaxKm, 'states':states,'fav_id':fav_ids}
